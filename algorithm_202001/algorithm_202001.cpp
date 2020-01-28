@@ -2,13 +2,43 @@
 #include "pch.h"
 //여기부터 복사 제출
 #include <iostream>
-//#include <algorithm>
+#include <algorithm>
 #include <vector>
 //#include <cstdio>
 //#include <string>
 using namespace std;
 
 
+//백준 1931번 회의실배정
+int N;
+vector<pair<int, int>>v;
+int find() {
+	int time = 0, cnt = 0;
+	for (int i = 0; i < N; i++) {
+		if (time <= v[i].second) {
+			time = v[i].first;
+			cnt++;
+		}
+	}
+	return cnt;
+}
+int main() {	
+	cin.tie(0);
+	cin >> N;
+	
+	for (int i = 0; i < N; i++) {
+		int start, end;
+		cin >> start >> end;
+		v.push_back(make_pair(end, start));
+	}
+	sort(v.begin(), v.end());
+	cout << find() << '\n';
+
+}
+
+////백준 14888번 연산자 끼워 넣기
+//int max = 1000000000;
+//int min = -max;
 
 //백준 2580번 스도쿠 
 /*
