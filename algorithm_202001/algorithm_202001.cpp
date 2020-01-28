@@ -8,7 +8,48 @@
 //#include <string>
 using namespace std;
 
+//백준 9663 n-queen
+int N;
+#define MAX 15
+int cnt;
+int layout[MAX];
+
+
+void find(const int& n) {
+	bool wrong;
+
+	if (n == N) {
+		cnt++;
+		return;
+	}
+	for (int i = 0; i < N; i++) {
+		wrong = false;
+		for (int j = 0; j < n; j++) {
+			if (layout[j] == i || abs(n - j) == abs(i - layout[j])) {
+				wrong = true;
+				break;
+			}
+		}
+		if (!wrong) {
+			layout[n] = i;
+			find(n + 1);
+		}
+	}
+
+}
+int main() {
+	cin.tie(0);
+	cnt = 0;
+	cin >> N;
+	find(0);
+	
+	cout << cnt << "\n";
+}
+
+
+
 //백준	15652번 N과 M(4) 
+/*
 
 #define MAX 8+1
 
@@ -37,7 +78,7 @@ int main() {
 
 	Dfs(0,1);
 
-}
+}*/
 
 
 //백준	15651번 N과 M(3) 
