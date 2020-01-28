@@ -2,10 +2,10 @@
 #include "pch.h"
 //여기부터 복사 제출
 #include <iostream>
-#include <algorithm>
+//#include <algorithm>
 #include <vector>
-#include <cstdio>
-#include <string>
+//#include <cstdio>
+//#include <string>
 using namespace std;
 
 //백준	15649번
@@ -13,18 +13,33 @@ using namespace std;
 
 int checked[MAX] = { 0, };
 int list[MAX] = { 0, };
+int N, M;
 
-void define(int n) {
 
+void Dfs(const int& n) {
+	if (n == M) {
+		for (int i = 0; i < M; i++) {
+			cout << list[i] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+
+	for (int i = 1; i <= N; i++) {
+		if (!checked[i]) {
+			checked[i] = true;
+			list[n] = i;
+			Dfs(n + 1);
+			checked[i] = false;
+		}
+	}
 }
 
 int main() {
-	int N, M;
+	cin.tie(0);
 	cin >> N >> M;
-	vector<int> v;
-	for (int i = 1; i < M; i++) {
-
-	}
+	
+	Dfs(0);
 
 }
 
