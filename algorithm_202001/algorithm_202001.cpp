@@ -8,7 +8,88 @@
 //#include <string>
 using namespace std;
 
-//백준 9663 n-queen
+
+
+//백준 2580번 스도쿠 
+/*
+
+vector<pair<int, int>>voidcell;
+
+int sudoku[9][9];
+
+
+bool check_hori(const int& r, const int& num){
+	for (int c = 0; c < 9; c++) {
+		if (sudoku[r][c] == num) {
+			return false;
+		}
+	}
+	return true;
+}
+bool check_verti(const int& c, const int& num){
+	for (int r = 0; r < 9; r++) {
+		if (sudoku[r][c] == num) {
+			return false;
+		}
+	}
+	return true;
+}
+bool check_squ(int r, int c, int num) {
+	r = r / 3;
+	c = c / 3;
+	for (int rr = r * 3; rr < (r * 3) + 3; rr++) {
+		for (int cc = c * 3; cc < (c * 3) + 3; cc++) {
+			if (sudoku[rr][cc] == num)
+				return false;
+		}
+	}
+	return true;
+}
+
+bool check_cell(const int& r, const int& c, const int& num) {
+	return check_hori(r, num) && check_verti(c, num) && check_squ(r, c, num);
+}
+void insert() {
+	for (int i = 0; i < 9; i++) {
+		for (int j = 0; j < 9; j++) {
+			int tmp;
+			cin >> tmp;
+			sudoku[i][j] = tmp;
+			if (tmp == 0)
+				voidcell.push_back(make_pair(i, j));
+		}
+	}
+}
+
+void find(int n) {
+	if (n == voidcell.size()) {
+		for (int i = 0; i < 9; i++) {
+			for (int j = 0; j < 9; j++) {
+				cout << sudoku[i][j] << " ";
+			}
+			cout << '\n';
+		}
+		exit(0);
+	}
+	for (int i = 1; i <= 9; i++) {
+		int r = voidcell[n].first;
+		int c = voidcell[n].second;
+		if (check_cell(r, c, i)) {
+			sudoku[r][c] = i;
+			find(n + 1);
+			sudoku[r][c] = 0;
+
+		}
+	}
+}
+int main() {
+	insert();
+	find(0);
+}
+*/
+
+//백준 9663 n-queen 
+/*
 int N;
 #define MAX 15
 int cnt;
@@ -45,7 +126,7 @@ int main() {
 	
 	cout << cnt << "\n";
 }
-
+*/
 
 
 //백준	15652번 N과 M(4) 
