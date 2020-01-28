@@ -8,7 +8,109 @@
 //#include <string>
 using namespace std;
 
-//백준	15649번
+//백준	15652번 N과 M(4) 
+
+#define MAX 8+1
+
+int list[MAX] = { 0, };
+int N, M;
+
+
+void Dfs(const int& n,const int& k) {
+	if (n == M) {
+		for (int i = 0; i < M; i++) {
+			cout << list[i] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+
+	for (int i = k; i <= N; i++) {
+		list[n] = i;
+		Dfs(n + 1, i);
+	}
+}
+
+int main() {
+	cin.tie(0);
+	cin >> N >> M;
+
+	Dfs(0,1);
+
+}
+
+
+//백준	15651번 N과 M(3) 
+/*
+
+#define MAX 8+1
+
+int list[MAX] = { 0, };
+int N, M;
+
+
+void Dfs(const int& n) {
+	if (n == M) {
+		for (int i = 0; i < M; i++) {
+			cout << list[i] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+
+	for (int i = 1; i <= N; i++) {
+		list[n] = i;
+		Dfs(n + 1);
+	}
+}
+
+int main() {
+	cin.tie(0);
+	cin >> N >> M;
+
+	Dfs(0);
+
+}*/
+
+//백준	15650번 N과 M(2) 
+/*
+#define MAX 8+1
+
+int checked[MAX] = { 0, };
+int list[MAX] = { 0, };
+int N, M;
+
+
+void Dfs(const int& n,const int& k) {
+	if (n == M) {
+		for (int i = 0; i < M; i++) {
+			cout << list[i] << " ";
+		}
+		cout << "\n";
+		return;
+	}
+
+	for (int i = k; i <= N; i++) {
+		if (!checked[i]) {
+			checked[i] = true;
+			list[n] = i;
+			Dfs(n + 1,i+1);
+			checked[i] = false;
+		}
+	}
+}
+
+int main() {
+	cin.tie(0);
+	cin >> N >> M;
+
+	Dfs(0,1);
+
+}
+*/
+
+//백준	15649번 N과 M(1) 
+/*
 #define MAX 8+1
 
 int checked[MAX] = { 0, };
@@ -42,7 +144,7 @@ int main() {
 	Dfs(0);
 
 }
-
+*/
 
 //백준 10814번
 /*
