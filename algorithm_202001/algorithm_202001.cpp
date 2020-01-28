@@ -8,7 +8,73 @@
 //#include <string>
 using namespace std;
 
-//백준
+
+//백준 14889번 스타트와 링크
+#define MAX 20
+int N;
+int sum;
+int div_N;
+int _min=1000000;
+int member[(MAX / 2)+1];
+int arr[MAX+1][MAX+1];
+
+void find(const int& cnt,const int& first) { //지금 멤버수와 다음멤버
+	//완성 되었으면
+	if (cnt == div_N) {
+		int hap = 0;
+		int other_hap = 0;
+		vector<int> v;
+		for (int i = 1; i <= div_N; i++) {
+			v.push_back(member[i]);
+		}
+		for (int i = 1; i < N; i++) {
+			for (int j = i+1; j <= N; j++) {
+				vector<int>::iterator iter1,iter2;
+				iter1 = find(v.begin(), v.end(), i);
+				iter2 = find(v.begin(), v.end(), j);
+				if (iter1 != v.end() && iter2 != v.end())
+					hap += (arr[i][j] + arr[j][i]);
+				else if (iter1 == v.end() && iter2 == v.end())
+					other_hap += (arr[i][j] + arr[j][i]);
+			}
+				
+		}
+		hap = hap - other_hap;
+		if (hap < 0)
+			hap = -hap;
+		if (_min > hap) {
+			_min = hap;
+		}
+		return;
+	}
+
+	//완성이 안되면 멤버 더하기
+	for (int i = first; i <= N; i++) {
+		member[cnt+1] = i;
+		find(cnt + 1, i + 1);
+	}
+
+}
+int main() {
+	cin.tie(0);
+	cin >> N;
+	div_N = N / 2;
+	sum = 0;
+	for (int i = 1; i <= N; i++) {
+		for (int j = 1; j <= N; j++) {
+			int tmp;
+			cin >> tmp;
+			sum += tmp;
+			arr[i][j] = tmp;
+		}
+	}
+	member[1] = 1;
+	find(1, 1+1);
+
+	cout << _min << '\n';
+
+
+}
 
 //백준 14888번 연산자 끼워 넣기 
 /*
