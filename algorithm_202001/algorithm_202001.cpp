@@ -53,7 +53,7 @@ void find(const int& cnt,const int& first) { //지금 멤버수와 다음멤버
 		member[cnt+1] = i;
 		find(cnt + 1, i + 1);
 	}
-	//테스트
+	//테스트2
 }
 int main() {
 	cin.tie(0);
