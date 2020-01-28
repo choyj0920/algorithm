@@ -8,8 +8,58 @@
 //#include <string>
 using namespace std;
 
+//백준
+
+//백준 14888번 연산자 끼워 넣기 
+/*
+int _max = -1000000000;
+int _min = 1000000000;
+int N;
+
+int oper[4];
+int* arr;
+
+void find(const int& plus, const int& minus, const int& multi,
+	const int& divid, const int& num, const int& cnt) {
+	if (cnt == N - 1) {
+		if (_max < num)
+			_max = num;
+		if (_min > num)
+			_min = num;
+		return;
+	}
+	int nextcnt = cnt + 1;
+	if (plus > 0)
+		find(plus - 1, minus, multi, divid, num + arr[nextcnt], nextcnt);
+	if (minus > 0)
+		find(plus, minus - 1, multi, divid, num - arr[nextcnt], nextcnt);
+	if (multi > 0)
+		find(plus, minus, multi - 1, divid, num * arr[nextcnt], nextcnt);
+	if (divid > 0)
+		find(plus, minus, multi, divid - 1, num / arr[nextcnt], nextcnt);
+
+}
+
+int main() {
+	cin.tie(0);
+	cin >> N;
+	arr = new int[N];
+	for (int i = 0; i < N; i++) {
+		cin >> arr[i];
+	}
+	for (int i = 0; i < 4; i++) {
+		cin >> oper[i];
+	}
+	find(oper[0], oper[1], oper[2], oper[3], arr[0], 0);
+
+	delete arr;
+
+	cout << _max << '\n' << _min;
+}
+*/
 
 //백준 1931번 회의실배정
+/*
 int N;
 vector<pair<int, int>>v;
 int find() {
@@ -34,11 +84,8 @@ int main() {
 	sort(v.begin(), v.end());
 	cout << find() << '\n';
 
-}
+}*/
 
-////백준 14888번 연산자 끼워 넣기
-//int max = 1000000000;
-//int min = -max;
 
 //백준 2580번 스도쿠 
 /*
