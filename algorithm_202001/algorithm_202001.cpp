@@ -5,11 +5,28 @@
 #include <algorithm>
 #include <vector>
 //#include <cstdio>
-//#include <string>
+#include <string>
 using namespace std;
 
+//백준 5430번 AC
 
-//백준 14889번 스타트와 링크
+string p;
+string strarr;
+
+int main() {
+	int T;
+	cin.tie(0);
+	cin >> T;
+
+	for (int i = 0; i < T; i++) {
+
+	}
+}
+
+
+//백준 14889번 스타트와 링크 
+/*
+
 #define MAX 20
 int N;
 int sum;
@@ -75,6 +92,7 @@ int main() {
 
 
 }
+*/
 
 //백준 14888번 연산자 끼워 넣기 
 /*
