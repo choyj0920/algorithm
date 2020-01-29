@@ -2,26 +2,68 @@
 #include "pch.h"
 //여기부터 복사 제출
 #include <iostream>
-#include <algorithm>
-#include <vector>
-//#include <cstdio>
 #include <string>
+#include <cstring>
+#include <deque>
+
 using namespace std;
 
 //백준 5430번 AC
 
-string p;
-string strarr;
+deque <int> dq;
+char arr[400005];
 
 int main() {
-	int T;
-	cin.tie(0);
-	cin >> T;
 
-	for (int i = 0; i < T; i++) {
+	int t;
+	cin >> t;
 
+	while (t--) {
+
+		memset(arr, '\0', sizeof(arr));
+		bool e = false;
+		bool r = false;
+		dq.clear();
+		string p; int n;
+		cin >> p >> n >> arr;
+
+		char* tmp = strtok(arr, "[,]");
+		while (tmp) {
+			dq.push_back(stoi(tmp));
+			tmp = strtok(NULL, "[,]");
+		}
+
+		for (int i = 0; i < p.size(); i++) {
+			if (p[i] == 'R') {
+				if (r) r = false;
+				else r = true;
+			}
+			if (p[i] == 'D') {
+				if (dq.empty()) {
+					e = true;
+					break;
+				}
+				if (r) dq.pop_back();
+				else dq.pop_front();
+			}
+		}
+
+		if (e) cout << "error\n";
+		else {
+			cout << '[';
+			for (int i = 0; i < dq.size(); i++) {
+				if (r) cout << dq[dq.size() - 1 - i];
+				else cout << dq[i];
+
+				if (i == dq.size() - 1) continue;
+				else cout << ',';
+			}
+			cout << "]\n";
+		}
 	}
+	return 0;
 }
+
 
 
 //백준 14889번 스타트와 링크 
