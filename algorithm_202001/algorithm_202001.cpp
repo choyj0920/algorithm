@@ -6,7 +6,34 @@
 using namespace std;
 
 
+//백준 2579번 계단 오르기
+
+int stair[301],m_stair[301];
+int N;
+
+int main() {
+	cin.tie(0);
+	cin >> N;
+	
+	for (int i = 1; i <= N; i++) {
+		cin >> stair[i];
+	}
+
+	m_stair[1] = stair[1];
+	m_stair[2] = stair[1] + stair[2];
+	m_stair[3] = max(stair[1], stair[2]) + stair[3];
+
+	for (int i = 4; i <= N; i++) {
+		m_stair[i] = max(m_stair[i - 2], m_stair[i - 3] + stair[i - 1]) + stair[i];
+	}
+	cout << m_stair[N] << '\n';
+
+}
+
+
+
 //백준 1932번 정수 삼각형
+/*
 int tri[501][501] = { 0, };
 int main() {
 	cin.tie(0);
@@ -25,7 +52,7 @@ int main() {
 		_max = max(_max, tri[n][i]);
 	}
 	cout << _max << '\n';
-}
+}*/
 
 
 //백준 1149번 RGB거리 
