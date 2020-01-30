@@ -5,9 +5,26 @@
 
 using namespace std;
 
+//백준 1904번 01타일
+int tile[1000001];
+int find(int n) {
+	tile[1] = 1;
+	tile[2] = 2;
+	for (int i = 3; i <= n; i++) {
+		tile[i] = tile[i - 2] + tile[i - 1];
+		tile[i] %= 15746;
+	}
+	return tile[n] % 15746;
+}
+
+int main() {
+	int N;
+	cin >> N;
+	cout << find(N) << '\n';
+}
 
 //백준 2748번 피보나치 수 2 
-
+/*
 long long D[91];
 int n;
 long long fibo(int n, long long D[90])
@@ -27,7 +44,7 @@ int main()
 	cin >> n;
 	printf("%lld", fibo(n, D));//n번째 피보나치값 출력
 	return 0;
-} 
+} */
 
 
 //백준 5430번 AC 
