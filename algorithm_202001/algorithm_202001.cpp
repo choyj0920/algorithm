@@ -5,7 +5,31 @@
 #include<algorithm>
 using namespace std;
 
-//백준 1149번 RGB거리
+
+//백준 1932번 정수 삼각형
+int tri[501][501] = { 0, };
+int main() {
+	cin.tie(0);
+	int n;
+	cin >> n;
+
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= i; j++) {
+			cin >> tri[i][j];
+			tri[i][j] += max(tri[i - 1][j], tri[i - 1][j - 1]);
+
+		}
+	}
+	int _max=0;
+	for (int i = 1; i <= n; i++) {
+		_max = max(_max, tri[n][i]);
+	}
+	cout << _max << '\n';
+}
+
+
+//백준 1149번 RGB거리 
+/*
 
 int color[1001][3] = { 0, }; //  집 비용-rgb각각 0,1,2
 
@@ -22,7 +46,7 @@ int main() {
 	}
 	cout << min(color[n][0], min(color[n][1], color[n][2]));
 }
-
+*/
 //백준 9461번 파도반 수열
 /*
 int N;
