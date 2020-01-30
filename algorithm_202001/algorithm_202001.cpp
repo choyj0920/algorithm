@@ -2,10 +2,50 @@
 #include "pch.h"
 //여기부터 복사 제출
 #include <iostream>
-
+#include<algorithm>
 using namespace std;
 
-//백준 1904번 01타일
+//백준 1149번 RGB거리
+
+int color[1001][3] = { 0, }; //  집 비용-rgb각각 0,1,2
+
+int main() {
+	cin.tie(0);
+	int n;
+	cin >> n;
+	for (int i = 1; i <= n; i++) {
+		cin >> color[i][0] >> color[i][1] >> color[i][2];
+		
+		color[i][0] += min(color[i - 1][1], color[i - 1][2]);
+		color[i][1] += min(color[i - 1][0], color[i - 1][2]);
+		color[i][2] += min(color[i - 1][1], color[i - 1][0]);
+	}
+	cout << min(color[n][0], min(color[n][1], color[n][2]));
+}
+
+//백준 9461번 파도반 수열
+/*
+int N;
+long long tri[101] = {1,1,1,1,2,2, };
+
+
+int main() {
+	
+	cin.tie(0);
+	int T;
+	cin >> T;
+	for (int i = 6; i <= 100; i++) {
+		tri[i] = tri[i - 1] + tri[i - 5];
+	}
+	for (int t = 0; t < T; t++) {
+		int tmp;
+		cin >> tmp;
+		cout << tri[tmp] << '\n';
+	}	
+}*/
+
+//백준 1904번 01타일 
+/*
 int tile[1000001];
 int find(int n) {
 	tile[1] = 1;
@@ -21,7 +61,7 @@ int main() {
 	int N;
 	cin >> N;
 	cout << find(N) << '\n';
-}
+} */
 
 //백준 2748번 피보나치 수 2 
 /*
