@@ -2,13 +2,36 @@
 #include "pch.h"
 //여기부터 복사 제출
 #include <iostream>
-#include <string>
-#include <cstring>
-#include <deque>
 
 using namespace std;
 
-//백준 5430번 AC
+
+//백준 2748번 피보나치 수 2 
+
+long long D[91];
+int n;
+long long fibo(int n, long long D[90])
+{
+	
+	D[0] = 0;//피보나치 1번째
+	D[1] = 1;//피보나치 2번째
+	for (int i = 2; i <= n; i++)
+	{
+		D[i] = D[i - 1] + D[i - 2];
+	}
+	return D[n];//n번째 피보나치값 출력
+}
+
+int main()
+{
+	cin >> n;
+	printf("%lld", fibo(n, D));//n번째 피보나치값 출력
+	return 0;
+} 
+
+
+//백준 5430번 AC 
+/*
 
 deque <int> dq;
 char arr[400005];
@@ -63,7 +86,7 @@ int main() {
 	}
 	return 0;
 }
-
+*/
 
 
 //백준 14889번 스타트와 링크 
