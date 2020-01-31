@@ -6,7 +6,27 @@
 using namespace std;
 
 
-//백준 2579번 계단 오르기
+//백준 1463번 1로 만들기
+
+int cal_x[1000001] = { 0, };
+
+int main() {
+	int N;
+	cin.tie(0);
+	cin >> N;
+	cal_x[1] = 0;
+	
+	for (int i = 2; i <= N ; i++) {
+		cal_x[i] = cal_x[i - 1] + 1;
+		if (i % 2 == 0) cal_x[i] = min(cal_x[i], cal_x[i / 2] + 1);
+		if (i % 3 == 0) cal_x[i] = min(cal_x[i], cal_x[i / 3] + 1);
+	}
+	cout << cal_x[N];
+}
+
+
+//백준 2579번 계단 오르기 
+/*
 
 int stair[301],m_stair[301];
 int N;
@@ -29,7 +49,7 @@ int main() {
 	cout << m_stair[N] << '\n';
 
 }
-
+*/
 
 
 //백준 1932번 정수 삼각형
