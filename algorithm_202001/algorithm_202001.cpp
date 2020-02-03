@@ -5,8 +5,35 @@
 #include<algorithm>
 using namespace std;
 
+//백준 10844번 쉬운 계단 수
+int DP[101][10];
+
+int main() {
+	cin.tie(0);
+	int N;
+	cin >> N;
+	for (int i = 1; i <= 9; i++) {
+		DP[1][i] = 1;
+	}
+	for (int i = 2; i <= N; i++) {
+		for (int j = 0; j <= 9; j++) {
+			if (j == 0) DP[i][0] = DP[i - 1][1];
+			else if (j == 9) {
+				DP[i][j] = DP[i - 1][8];
+			}
+			else
+				DP[i][j] = (DP[i - 1][j - 1] + DP[i - 1][j + 1]) % 1000000000;
+		}
+	}
+	long long sum = 0;
+	for (int i = 0; i <= 9; i++)
+		sum += DP[N][i];
+	cout << sum % 1000000000 << '\n';
+
+}
 
 //백준 1463번 1로 만들기
+/*
 
 int cal_x[1000001] = { 0, };
 
@@ -23,7 +50,7 @@ int main() {
 	}
 	cout << cal_x[N];
 }
-
+*/
 
 //백준 2579번 계단 오르기 
 /*
