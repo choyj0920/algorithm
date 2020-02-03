@@ -5,7 +5,30 @@
 #include<algorithm>
 using namespace std;
 
-//백준 10844번 쉬운 계단 수
+
+//백준 2156번 포도주 시식
+int DP[10001];
+int podo[10001];
+
+int main() {
+	cin.tie(0);
+	int n;	
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+		cin >> podo[i];
+	DP[0] = 0;
+	DP[1] = podo[1];
+	DP[2] = DP[1] + podo[2];
+	for (int i = 3; i <= n; i++) {
+		DP[i] = max(DP[i - 3] + podo[i - 1] + podo[i], DP[i - 1]);
+		DP[i] = max(DP[i - 2] + podo[i], DP[i]);
+		
+	}
+	cout << DP[n] << '\n';
+}
+
+//백준 10844번 쉬운 계단 수 
+/*
 int DP[101][10];
 
 int main() {
@@ -31,7 +54,7 @@ int main() {
 	cout << sum % 1000000000 << '\n';
 
 }
-
+*/
 //백준 1463번 1로 만들기
 /*
 
