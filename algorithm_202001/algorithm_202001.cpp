@@ -5,8 +5,34 @@
 #include<algorithm>
 using namespace std;
 
+//백준 11053번 가장 긴 증가하는 수열
+#include<vector>
+#define BACK 100001
+int main() {
+	vector<int> v;
+	v.push_back(BACK);
+	int N;
+	cin >> N;
+	int k;
+	for (int i = 0; i < N; i++) {
+		cin >> k;
+		if (k > v.back()) {
+			if (v.back() == BACK)
+				v.clear();
+			v.push_back(k);
+		}
+		else {
+			auto it = lower_bound(v.begin(), v.end(), k);
+			*it = k;
+		}
+	}
+	cout << v.size() << '\n';
+	
+}
 
-//백준 2156번 포도주 시식
+
+//백준 2156번 포도주 시식 
+/*
 int DP[10001];
 int podo[10001];
 
@@ -25,7 +51,7 @@ int main() {
 		
 	}
 	cout << DP[n] << '\n';
-}
+}*/
 
 //백준 10844번 쉬운 계단 수 
 /*
