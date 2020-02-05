@@ -5,8 +5,44 @@
 #include<algorithm>
 using namespace std;
 
-//백준 11054번 가장 긴 바이토닉 부분 수열 
+//백준 2565번 전깃줄
+#define BACK 1001
+#include<vector>
+int main() {
+	int N;
+	cin >> N;
+	vector<pair<int, int>>v;
+	v.resize(N);
+	for (int i = 0; i < N; i++) {
+		int fir, sec;
+		cin >> fir >> sec;
+		v.push_back(make_pair(fir, sec));
+		//cin >> v[i].first >> v[i].second;
+	}
 
+	sort(v.begin(), v.end());
+	vector<int> v2;
+	v2.push_back(BACK);
+	int k;
+	for (pair<int, int> i : v) {
+		k = i.second;
+		if (k > v2.back()) {
+			if (v2.back() == BACK)
+				v2.clear();
+			v2.push_back(k);
+		}
+		else {
+			auto it = lower_bound(v2.begin(), v2.end(), k);
+			*it = k;
+		}
+	}
+	cout << N-v2.size()+1 << '\n';
+
+}
+
+
+//백준 11054번 가장 긴 바이토닉 부분 수열 
+/*
 
 int main() {
 	int N;
@@ -49,7 +85,7 @@ int main() {
 	cout << max - 1 << '\n';
 
 }
-
+*/
 
 //백준 11053번 가장 긴 증가하는 수열 
 /*
