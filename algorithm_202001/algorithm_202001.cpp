@@ -5,7 +5,54 @@
 #include<algorithm>
 using namespace std;
 
-//백준 11053번 가장 긴 증가하는 수열
+//백준 11054번 가장 긴 바이토닉 부분 수열 
+
+
+int main() {
+	int N;
+	int DP[2][1001] = { 0, };
+	int A[1001] = { 0, };
+	int max = 0;
+	cin.tie(0);
+	cin >> N;
+
+	for (int i = 1; i <= N; i++)
+		cin >> A[i];
+	
+	for (int i = 1; i <= N; i++) {
+		int maxfor = 0;
+		for (int j = 0; j < i; j++) {
+			if (A[j] < A[i]) {
+				if (maxfor < DP[0][j])
+					maxfor = DP[0][j];
+			}
+		}
+		DP[0][i] = maxfor + 1;
+	}
+	for (int i = N; i >= 1; i--) {
+		int maxback = 0;
+		for (int j = N; j > i; j--) {
+			if (A[i] > A[j]) {
+				if (maxback < DP[1][j]) {
+					maxback = DP[1][j];
+				}
+			}
+		}
+		if (DP[1][i] < maxback + 1) {
+			DP[1][i] = maxback + 1;
+		}
+	}
+	for (int i = 1; i <= N; i++) {
+		if (max < DP[0][i] + DP[1][i])
+			max = DP[0][i] + DP[1][i];
+	}
+	cout << max - 1 << '\n';
+
+}
+
+
+//백준 11053번 가장 긴 증가하는 수열 
+/*
 #include<vector>
 #define BACK 100001
 int main() {
@@ -28,7 +75,7 @@ int main() {
 	}
 	cout << v.size() << '\n';
 	
-}
+}*/
 
 
 //백준 2156번 포도주 시식 
