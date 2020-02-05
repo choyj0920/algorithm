@@ -5,7 +5,8 @@
 #include<algorithm>
 using namespace std;
 
-//백준 2565번 전깃줄
+//백준 2565번 전깃줄 
+/*
 #define BACK 1001
 #include<vector>
 int main() {
@@ -38,7 +39,7 @@ int main() {
 	}
 	cout << N-v2.size()+1 << '\n';
 
-}
+} */
 
 
 //백준 11054번 가장 긴 바이토닉 부분 수열 
