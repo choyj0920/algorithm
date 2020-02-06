@@ -4,7 +4,27 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 11047번 동전0
+// 백준 11399번 ATM
+int arr[1001] = { 0, };
+int main() {
+	cin.tie(0);
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	sort(arr, arr + n);
+	int _min = 0;
+	for (int i = 0; i < n; i++) {
+		_min += (n - i) * arr[i];
+	}
+	cout << _min << '\n';
+}
+
+
+
+// 백준 11047번 동전0 
+/*
 int arr[11] = { 0, };
 int main() {
 	int n, k;
@@ -20,7 +40,7 @@ int main() {
 	
 	cout << min << '\n';
 }
-
+*/
 
 // 백준 12865번 평범한 배낭 
 /*
