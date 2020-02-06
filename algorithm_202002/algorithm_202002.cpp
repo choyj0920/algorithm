@@ -4,7 +4,30 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1912번 연속합
+// 백준 12865번 평범한 배낭
+int DP[101][100001] = { 0, };
+int main() {
+	cin.tie(0);
+	int N, K;
+	cin >> N >> K;
+	for (int n = 1; n <= N; n++) {
+		int w, v;
+		cin >> w >> v;
+		for (int k = 1; k <= K; k++) {
+			if (w <= k) {
+				DP[n][k] = max(DP[n - 1][k], DP[n - 1][k - w] + v);
+			}
+			else {
+				DP[n][k] = DP[n - 1][k];
+			}
+		}
+	}
+	cout << DP[N][K] << '\n';
+
+}
+
+// 백준 1912번 연속합 
+/*
 int DP[1000001] = { 0, };
 int main() {
 	cin.tie(0);
@@ -26,7 +49,7 @@ int main() {
 	
 	cout << _max << '\n';
 }
-
+*/
 
 // 백준 9251번 LCS
 /*
