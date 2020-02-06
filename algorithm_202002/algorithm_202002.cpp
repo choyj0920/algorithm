@@ -4,7 +4,26 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 12865번 평범한 배낭
+// 백준 11047번 동전0
+int arr[11] = { 0, };
+int main() {
+	int n, k;
+	cin >> n >> k;
+	for (int i = 1; i <= n; i++) {
+		cin >> arr[i];
+	}
+	int min = 0;
+	for (int i = n; i >= 1; i--) {
+		min += k / arr[i];
+		k %= arr[i];
+	}
+	
+	cout << min << '\n';
+}
+
+
+// 백준 12865번 평범한 배낭 
+/*
 int DP[101][100001] = { 0, };
 int main() {
 	cin.tie(0);
@@ -25,7 +44,7 @@ int main() {
 	cout << DP[N][K] << '\n';
 
 }
-
+*/
 // 백준 1912번 연속합 
 /*
 int DP[1000001] = { 0, };
