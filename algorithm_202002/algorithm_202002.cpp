@@ -4,7 +4,40 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 11051번 이항계수2 -dp
+// 백준 9375번 패션왕 신해빈
+#include<string>
+#include<map>
+int main() {
+	cin.tie(0);
+	map<string, int> style;
+	
+	int testcase;
+	cin >> testcase;
+	for (int t = 0; t < testcase; t++) {
+		int n;
+		cin >> n;
+		style.clear();
+		for (int i = 0; i < n; i++) {
+			string str;
+			cin >> str >> str;
+			
+			if (style.find(str) == style.end()) {
+				style.insert(make_pair(str, 1));
+			}
+			else
+				style[str]++;
+		}
+		int k = 1;
+		for (map<string,int>::iterator it = style.begin(); it != style.end(); it++) {
+			k *= (it->second + 1);
+		}
+		cout << k - 1 << '\n';
+	}
+
+}
+
+// 백준 11051번 이항계수2 -dp 
+/*
 int dp[1001][1001] = { 0, };
 int main() {
 	int n, k;
@@ -22,7 +55,7 @@ int main() {
 	}
 	cout << dp[n][k] << '\n';
 }
-
+*/
 
 // 백준 11050번 이항계수1 
 /*
