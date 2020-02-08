@@ -4,7 +4,31 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 3036번 링
+int gcd(int p, int q) {
+	return q ? gcd(q, p % q) : p;
+}
+int main() {
+	int n;
+	cin.tie(0);
+	cin >> n;
+	int arr[100] = { 0, };
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	for (int i = 1; i < n; i++) {
+		int g;
+		if (arr[0] > arr[i]) {
+			g = gcd(arr[0], arr[i]);
+		}
+		else
+			g = gcd(arr[i], arr[0]);
+		cout << arr[0] / g << '/' << arr[i] / g << '\n';
+	}
+}
+
 // 백준 2981번 검문
+/*
 #include <vector>
 int arr[100];
 int gcd(int p, int q) {
@@ -36,7 +60,7 @@ int main() {
 		cout << a << " ";
 	return 0;
 }
-
+*/
 
 // 백준 2609번 최대 공약수와 최소공배수
 /*
