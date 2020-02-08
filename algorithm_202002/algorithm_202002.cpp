@@ -4,7 +4,28 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 11050번 이항계수1
+// 백준 11051번 이항계수2 -dp
+int dp[1001][1001] = { 0, };
+int main() {
+	int n, k;
+	cin.tie(0);
+	cin >> n >> k;
+	for (int i = 1; i <= n; i++) {
+		dp[i][1] = i;
+		dp[i][i] = dp[i][0] = 1;
+	}
+	for (int i = 3; i <= n; i++) {
+		for (int j = 2; j < i; j++) {
+			dp[i][j] = (dp[i - 1][j] + dp[i - 1][j - 1]) % 10007;
+
+		}
+	}
+	cout << dp[n][k] << '\n';
+}
+
+
+// 백준 11050번 이항계수1 
+/*
 int find_Bc(const int& a,const int& b) {
 	int aa = 1, bb = 1;
 	for (int i = 0; i < b; i++) {
@@ -18,7 +39,7 @@ int main() {
 	cin.tie(0);
 	cin >> a >> b;
 	cout << find_Bc(a, b);
-}
+}*/
 
 
 // 백준 3036번 링 
