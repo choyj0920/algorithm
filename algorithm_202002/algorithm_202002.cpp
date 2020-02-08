@@ -4,7 +4,32 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 2609번 최대 공약수와 최소공배수
+int main() {
+	int a, b;
+	cin >> a >> b;
+	if (a > b) {
+		int temp = a;
+		a = b;
+		b = temp;
+	}
+	for (int i = a; i >= 1; i--) {
+		if (a % i == 0 && b % i == 0) {
+			cout << i << '\n';
+			break;
+		}
+	}
+	for (int i = b;; i++) {
+		if (i % a == 0 && i % b == 0) {
+			cout << i << '\n';
+			break;
+		}
+	}
+}
+
+
 // 백준 11653번 소인수 분해
+/*
 int main() {
 	cin.tie(0);
 	int n;
@@ -19,7 +44,7 @@ int main() {
 		}
 	}
 }
-
+*/
 // 백준 1037번 약수 
 /*
 int arr[51] = {};
