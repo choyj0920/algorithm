@@ -4,11 +4,33 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 5086번 배수와 약수
+int main() {
+	cin.tie(0);
+	int a, b;
+	while (true) {
+		cin >> a >> b;
+		if (a == 0 && b == 0) {
+			break;
+		}
+		if (a % b==0) {
+			cout << "multiple\n";
+		}
+		else if (b % a == 0) {
+			cout << "factor\n";
+
+		}
+		else {
+			cout << "neither\n";
+
+		}
+	}
+}
 
 
 
 // 백준 1541번 잃어버린 괄호 
-
+/*
 #include<string>
 int main() {
 	string str, temp = "";
@@ -35,7 +57,7 @@ int main() {
 	}
 	cout << result << '\n';
 }
-
+*/
 
 // 백준 11399번 ATM 
 /*
