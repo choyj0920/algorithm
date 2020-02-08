@@ -4,7 +4,57 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 1021번 회전하는 큐
+#include<deque>
+int main() {
+	int count = 0;
+	int n, m;
+	cin >> n >> m;
+	deque<int> dq;
+	for (int i = 1; i <= n; i++) {
+		dq.push_back(i);
+	}
+	for (int i = 0; i < m; i++) {
+		int num;
+		cin >> num;
+		int index;
+		for (int i = 0; i < dq.size(); i++) {
+			if (dq[i] == num) {
+				index = i;
+				break;
+			}
+			
+		}
+		if (index < dq.size() - index) {
+			while (true) {
+				if (dq.front() == num) {
+					dq.pop_front();
+					break;
+
+				}
+				count++;
+				dq.push_back(dq.front());
+				dq.pop_front();
+			}
+		}
+		else {
+			while (true) {
+				if (dq.front() == num) {
+					dq.pop_front();
+					break;
+				}
+				count++;
+				dq.push_front(dq.back());
+				dq.pop_back();
+			}
+		}
+	}
+	cout << count;
+}
+
+
 // 백준 1966번 프린터 큐
+/*
 #include<queue>
 
 int main() {
@@ -42,7 +92,7 @@ int main() {
 		cout << cnt << '\n';
 	}
 }
-
+*/
 // 백준 11866번 요세푸스 문제 0
 /*
 #include <queue>
