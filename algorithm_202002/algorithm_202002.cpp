@@ -8,21 +8,11 @@ using namespace std;
 int main() {
 	int n;
 	cin >> n;
-	int two = 0, five = 0;
-	for (int i = 1; i <= n; i++) {
-		int k = i;
-		while (k % 2 == 0 || k % 5 == 0) {
-			if (k % 2 == 0) {
-				two++;
-				k /= 2;
-			}
-			if (k % 5 == 0) {
-				five++;
-				k /= 5;
-			}
-		}
+	int five = 0;
+	for (int i = 5; i <= n; i*=5) {
+		five += n / i;
 	}
-	cout << min(two, five) << '\n';
+	cout << five << '\n';
 }
 
 
