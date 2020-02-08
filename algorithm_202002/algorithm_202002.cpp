@@ -4,7 +4,36 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 2004번 조합 0의 개수
+// 백준 13414번 수강신청
+#include<vector>
+#include<string>
+int main() {
+	int k, l;
+	cin.tie(0);
+	cin >> k >> l;
+	vector<string> arr;
+	//vector 중간삭제느림,검색속도 좋음
+	vector<string> real;
+	for (int i = 0; i < l; i++) {
+		string str;
+		cin >> str;
+		arr.push_back(str);
+	}
+	for (int i = l - 1; i >= 0; i--) {
+		string str = arr[i];
+		if (find(real.begin(), real.end(), str) == real.end()) {
+			real.push_back(str);
+		}
+	}
+	int size = real.size();
+	for (int i = size - 1; i >= size - k && i >= 0; i--) {
+		cout << real[i] << '\n';
+	}
+}
+
+
+// 백준 2004번 조합 0의 개수 
+/*
 long long two, five;
 int n_to_twofive(long long n,bool plus) {
 	int _two = 0, _five = 0;
@@ -27,7 +56,7 @@ int main() {
 	n_to_twofive(n - m, false);
 	cout << min(five, two);
 	
-}
+}*/
 
 
 // 백준 1676번 팩토리얼 0의 개수 
