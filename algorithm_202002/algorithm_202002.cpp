@@ -4,7 +4,24 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1037번 약수
+// 백준 11653번 소인수 분해
+int main() {
+	cin.tie(0);
+	int n;
+	cin >> n;
+	while (n != 1) {
+		for (int i = 2;; i++) {
+			if (n % i == 0) {
+				cout << i << '\n';
+				n /= i;
+				break;
+			}
+		}
+	}
+}
+
+// 백준 1037번 약수 
+/*
 int arr[51] = {};
 int main() {
 	int n;
@@ -16,7 +33,7 @@ int main() {
 	sort(arr, arr + n);
 	cout << arr[0] * arr[n - 1] << '\n';
 }
-
+*/
 
 // 백준 5086번 배수와 약수 
 /*
