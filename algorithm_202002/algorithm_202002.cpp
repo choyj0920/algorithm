@@ -4,7 +4,22 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 5086번 배수와 약수
+// 백준 1037번 약수
+int arr[51] = {};
+int main() {
+	int n;
+	cin.tie(0);
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	sort(arr, arr + n);
+	cout << arr[0] * arr[n - 1] << '\n';
+}
+
+
+// 백준 5086번 배수와 약수 
+/*
 int main() {
 	cin.tie(0);
 	int a, b;
@@ -26,7 +41,7 @@ int main() {
 		}
 	}
 }
-
+*/
 
 
 // 백준 1541번 잃어버린 괄호 
