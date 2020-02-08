@@ -4,7 +4,33 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 11866번 요세푸스 문제 0
+#include <queue>
+int main() {
+	queue<int> que;
+	int n, k;
+	cin >> n >> k;
+	for (int i = 1; i <= n; i++) {
+		que.push(i);
+	}
+	cout << "<";
+	while (!que.empty()) {
+		for (int i = 0; i < k - 1; i++) {
+			que.push(que.front());
+			que.pop();
+		}
+		cout << que.front();
+		que.pop();
+		if (!que.empty()) {
+			cout << ", ";
+		}
+	}
+	cout << ">" << '\n';
+	
+}
+
 // 백준 2164번 카드2
+/*
 #include<queue>
 int main() {
 	queue<int> que;
@@ -20,7 +46,7 @@ int main() {
 	}
 	cout << que.front() << '\n';
 }
-
+*/
 
 // 백준 18258번 큐2
 /*
