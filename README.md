@@ -4,7 +4,7 @@
 
 ### 자주 하는 실수
 
-
+ 
 
 
 
@@ -64,3 +64,45 @@ for (int i = 1; i <= len1; i++) {
 ```
 
 이차원 배열 , 배열을 이용해서 이전값,과 계속 비교해서 최적의 값을 찾는 DP
+
+
+
+#### 약수 구할때
+
+- ```cpp
+  vector<int> v;
+  for(int i=1; i<=n ;i++){
+      if(n % i ==0)
+          v.push_back(i);
+  } //이런 식으로 구하는 것 보다
+  for (int i = 2; i * i <= g; i++)
+  		if (!(g % i)) {
+  			ans.push_back(i);
+  			if (i != g / i) ans.push_back(g / i);
+  		}//이렇게 하고 필요하면 sort로 정렬하는것이 한참 빠르다
+  
+  ```
+
+- 유클리드 호제법 - 두 수의 최대 공약수 구하기
+
+  - ```cpp
+    int gcd(int a, int b)
+    {
+    	return b ? gcd(b, a%b) : a;
+    }
+    
+    int gcd(int a, int b)
+    {
+        int c;
+    	while(b)
+    	{
+    		c = a % b;
+    		a = b;
+    		b = c;
+    	}
+        return a;
+    }
+    
+    ```
+
+    

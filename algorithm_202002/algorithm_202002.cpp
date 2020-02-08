@@ -4,7 +4,42 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 2981번 검문
+#include <vector>
+int arr[100];
+int gcd(int p, int q) {
+	if (q == 0) return p;
+	return gcd(q, p % q);
+}
+int main() {
+	cin.tie(0);
+	int n;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		cin >> arr[i];
+	}
+	sort(arr, arr + n);
+	int g;
+	g = arr[1] - arr[0];
+	for (int i = 1; i < n - 1; i++) {
+		g = gcd(g, arr[i + 1] - arr[i]);
+	}
+	vector<int> ans;
+	for (int i = 2; i * i <= g; i++)
+		if (!(g % i)) {
+			ans.push_back(i);
+			if (i != g / i) ans.push_back(g / i);
+		}
+	ans.push_back(g);
+	sort(ans.begin(), ans.end());
+	for (int& a : ans)
+		cout << a << " ";
+	return 0;
+}
+
+
 // 백준 2609번 최대 공약수와 최소공배수
+/*
 int main() {
 	int a, b;
 	cin >> a >> b;
@@ -25,7 +60,7 @@ int main() {
 			break;
 		}
 	}
-}
+}*/
 
 
 // 백준 11653번 소인수 분해
