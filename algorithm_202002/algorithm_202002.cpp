@@ -4,7 +4,47 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 1966번 프린터 큐
+#include<queue>
+
+int main() {
+	int t;
+	cin.tie(0);
+	cin >> t;
+	int nowidx, prior;
+	for (int test = 0; test < t; test++) {
+		int n, m;
+		int cnt = 0;
+		queue < pair<int, int>> que;
+		priority_queue<int> pq;
+		cin >> n >> m;
+		for (int i = 0; i < n; i++) {
+			int k;
+			cin >> k;
+			que.push({ i,k });
+			pq.push(k);
+		}
+		while (que.size()) {
+			nowidx = que.front().first;
+			prior = que.front().second;
+			que.pop();
+
+			if (pq.top() == prior) {
+				++cnt;
+				pq.pop();
+				if (nowidx == m)
+					break;
+			}
+			else {
+				que.push({ nowidx, prior });
+			}
+		}
+		cout << cnt << '\n';
+	}
+}
+
 // 백준 11866번 요세푸스 문제 0
+/*
 #include <queue>
 int main() {
 	queue<int> que;
@@ -27,7 +67,7 @@ int main() {
 	}
 	cout << ">" << '\n';
 	
-}
+}*/
 
 // 백준 2164번 카드2
 /*
