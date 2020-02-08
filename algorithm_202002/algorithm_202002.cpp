@@ -4,6 +4,24 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 2164번 카드2
+#include<queue>
+int main() {
+	queue<int> que;
+	int n;
+	cin >> n;
+	for (int i = 1; i <= n; i++)
+		que.push(i);
+	while (que.size() != 1) {
+		que.pop();
+		int k = que.front();
+		que.pop();
+		que.push(k);
+	}
+	cout << que.front() << '\n';
+}
+
+
 // 백준 18258번 큐2
 /*
 
