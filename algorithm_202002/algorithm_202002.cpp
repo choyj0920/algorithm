@@ -4,7 +4,34 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1676번 팩토리얼 0의 개수
+// 백준 2004번 조합 0의 개수
+long long two, five;
+int n_to_twofive(long long n,bool plus) {
+	int _two = 0, _five = 0;
+	for (long long i = 2; i <= n; i *= 2) {
+		_two += n / i;
+	}
+	for (long long i = 5; i <= n; i *= 5) {
+		_five += n / i;
+	}
+	plus ? (two += _two, five += _five) : (two -= _two, five -= _five);
+	return 0;
+}
+int main() {
+	cin.tie(0);
+	two = five = 0;
+	long long n, m;
+	cin >> n >> m;
+	n_to_twofive(n, true);
+	n_to_twofive(m, false);
+	n_to_twofive(n - m, false);
+	cout << min(five, two);
+	
+}
+
+
+// 백준 1676번 팩토리얼 0의 개수 
+/*
 int main() {
 	int n;
 	cin >> n;
@@ -14,7 +41,7 @@ int main() {
 	}
 	cout << five << '\n';
 }
-
+*/
 
 // 백준 9375번 패션왕 신해빈 
 /*
