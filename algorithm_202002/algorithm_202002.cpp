@@ -4,7 +4,41 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 11399번 ATM
+
+
+
+// 백준 1541번 잃어버린 괄호 
+
+#include<string>
+int main() {
+	string str, temp = "";
+	cin.tie(0);
+	cin >> str;
+	
+	int result = 0;
+	bool minus = false;
+	for (int i = 0; i <= str.size(); i++) {
+		if (str[i] != '+' && str[i] != '-' && str[i] != NULL) {
+			temp += str[i];
+
+		}
+		else {
+			if (minus) {
+				result -= stoi(temp);
+			}
+			else
+				result += stoi(temp);
+			temp = "";
+			if (str[i] == '-')
+				minus = true;
+		}
+	}
+	cout << result << '\n';
+}
+
+
+// 백준 11399번 ATM 
+/*
 int arr[1001] = { 0, };
 int main() {
 	cin.tie(0);
@@ -20,7 +54,7 @@ int main() {
 	}
 	cout << _min << '\n';
 }
-
+*/
 
 
 // 백준 11047번 동전0 
