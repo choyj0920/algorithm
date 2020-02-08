@@ -4,7 +4,25 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 3036번 링
+// 백준 11050번 이항계수1
+int find_Bc(const int& a,const int& b) {
+	int aa = 1, bb = 1;
+	for (int i = 0; i < b; i++) {
+		aa *= (a - i);
+		bb *= (b - i);
+	}
+	return aa / bb;
+}
+int main() {
+	int a, b;
+	cin.tie(0);
+	cin >> a >> b;
+	cout << find_Bc(a, b);
+}
+
+
+// 백준 3036번 링 
+/*
 int gcd(int p, int q) {
 	return q ? gcd(q, p % q) : p;
 }
@@ -25,7 +43,7 @@ int main() {
 			g = gcd(arr[i], arr[0]);
 		cout << arr[0] / g << '/' << arr[i] / g << '\n';
 	}
-}
+}*/
 
 // 백준 2981번 검문
 /*
