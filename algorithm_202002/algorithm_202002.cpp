@@ -4,7 +4,55 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 18258번 큐2
+/*
+
+#include<queue>
+#include <cstring>
+char str[10];
+int main() {
+	cin.tie(0);
+
+	cin.sync_with_stdio(false);
+	queue<int> que;
+
+	int n;
+	cin >> n;
+	int x;
+
+	for (int i = 0; i < n; i++) {
+		cin >> str;
+		
+		if (!strcmp(str, "push")) {
+			cin >> x;
+			que.push(x);
+		}
+		else if (!strcmp(str, "size")) {
+			cout << que.size() << '\n';
+		}
+		else if (!strcmp(str,"empty")) {
+			cout << que.empty() << '\n';
+		}
+		else {
+			if (que.size() == 0)
+				cout << -1 << '\n';
+			else if (!strcmp(str, "pop")) {
+				cout << que.front() << '\n';
+				que.pop();
+			}
+			else if (!strcmp(str, "front")) {
+				cout << que.front() << '\n';
+			}
+			else if (!strcmp(str, "back")) {
+				cout << que.back() << '\n';
+			}
+		}			
+	}
+
+}*/
+
 // 백준 13414번 수강신청
+/*
 #include<vector>
 #include<string>
 int main() {
@@ -29,7 +77,7 @@ int main() {
 	for (int i = size - 1; i >= size - k && i >= 0; i--) {
 		cout << real[i] << '\n';
 	}
-}
+}*/
 
 
 // 백준 2004번 조합 0의 개수 
