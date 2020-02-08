@@ -4,7 +4,30 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 9375번 패션왕 신해빈
+// 백준 1676번 팩토리얼 0의 개수
+int main() {
+	int n;
+	cin >> n;
+	int two = 0, five = 0;
+	for (int i = 1; i <= n; i++) {
+		int k = i;
+		while (k % 2 == 0 || k % 5 == 0) {
+			if (k % 2 == 0) {
+				two++;
+				k /= 2;
+			}
+			if (k % 5 == 0) {
+				five++;
+				k /= 5;
+			}
+		}
+	}
+	cout << min(two, five) << '\n';
+}
+
+
+// 백준 9375번 패션왕 신해빈 
+/*
 #include<string>
 #include<map>
 int main() {
@@ -35,7 +58,7 @@ int main() {
 	}
 
 }
-
+*/
 // 백준 11051번 이항계수2 -dp 
 /*
 int dp[1001][1001] = { 0, };
