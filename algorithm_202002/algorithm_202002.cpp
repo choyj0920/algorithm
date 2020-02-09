@@ -4,7 +4,47 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 2740번 행렬
+int mat1[101][101] = { 0, }, mat2[101][101] = { 0, };
+int answer[101][101] = { 0, };
+void cal_matrix(int n, int m, int k) {
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < k; j++) {
+			int cell = 0;
+			for (int v = 0; v < m; v++) {
+				cell += mat1[i][v] * mat2[v][j];
+			}
+			answer[i][j] = cell;
+		}
+	}
+}
+int main() {
+	int n, m, k;
+	cin >> n >> m;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < m; j++) {
+			cin >> mat1[i][j];				
+		}
+	}
+	cin >> m >> k;
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < k; j++) {
+			cin >> mat2[i][j];
+		}
+	}
+	cal_matrix(n, m, k);
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < k; j++) {
+			cout << answer[i][j] << ' ';
+		}
+		cout << '\n';
+	}
+}
+
+
+
 // 백준 11401번 이항계수 
+/*
 long long fac[4000001], n, k;
 long long inv[4000001];//x!
 
@@ -48,7 +88,7 @@ int main() {
 			
 	}
 	   
-}
+}*/
 
 // 백준 1629번 곱셈 
 /*
