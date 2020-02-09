@@ -4,7 +4,30 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1780번 종이의 갯수
+// 백준 1629번 곱셈
+
+long long findpow(const int& a, const int& b,const int &c) {
+	if (b == 1)
+		return a % c;
+	else {
+		long long powofa = findpow(a, b / 2, c);
+		if (b % 2)
+			return (((powofa * powofa) % c) * a) % c;
+		else
+			return ((powofa * powofa) % c);
+	}
+}
+int main() {
+	
+	cin.tie(0);
+	int a, b, c;
+	cin >> a >> b >> c;
+	cout << findpow(a, b, c);
+}
+
+
+// 백준 1780번 종이의 갯수 
+/*
 int arr[2200][2200] = { 0, };
 int answer[3] = { 0, };
 void find(int row, int col, int size) {
@@ -50,7 +73,7 @@ int main() {
 		cout << answer[i] << '\n';
 	}
 }
-
+*/
 // 백준 1992번 쿼드트리
 /*
 int arr[64][64] = { 0, };
