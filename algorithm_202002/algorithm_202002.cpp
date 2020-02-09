@@ -1,10 +1,33 @@
 
 //여기부터 복사 제출
 	#include <iostream>
+	#include<vector>
 	#include<algorithm>
 	using namespace std;
 
+// 백준 10816번 숫자 카드2
+
+	int main() {
+		cin.sync_with_stdio(false);
+		cin.tie(0);
+		int n, m;
+		cin >> n;
+		vector<int>v(n, 0);
+		for (int i = 0; i < n; i++) {
+			cin >> v[i];
+		}
+		sort(v.begin(), v.end());
+		cin >> m;
+		for (int i = 0; i < m; i++) {
+			int num;
+			cin >> num;
+			cout << upper_bound(v.begin(), v.end(), num) - lower_bound(v.begin(), v.end(), num) << ' ';
+		}
+	}
+
+
 // 백준 1920번 수찾기 
+/*
 	int arr[100001] = { 0, };
 	void _Bsearch(int first, int last, int target) {
 		int mid;
@@ -41,7 +64,7 @@
 			cin >> find;
 			_Bsearch(0, n - 1, find);
 		}
-	}
+	}*/
 
 // 백준 2261번 가장 가까운 두 잠 
 /*
