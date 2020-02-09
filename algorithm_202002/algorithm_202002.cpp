@@ -4,7 +4,85 @@
 	#include<algorithm>
 	using namespace std;
 
-// 백준 6549번 히스토그램에서 가장 큰 직사각형 /*
+// 백준 2261번 가장 가까운 두 잠
+#include <vector>
+#include <set>
+#include <cmath>
+	struct Point {
+		int x, y;
+		Point() {
+
+		}
+		Point(int x, int y) :x(x), y(y) {
+
+		}
+		bool operator<(const Point& p) const {
+			if (y == p.y) {
+				return x < p.x;
+			}
+			else {
+				return y < p.y;
+			}
+		}
+		int distance(const Point& p) const {
+			return (p.x - x) * (p.x - x) + (p.y - y) * (p.y - y);
+		}
+	};
+
+	bool oper_x(const Point& a, const Point& b) {
+		return a.x < b.x;
+	}
+	
+
+	int main() {
+		cin.tie(0);
+		cin.sync_with_stdio(false);
+		int n;
+		Point p1, p2;
+		cin >> n;
+		vector<Point> v(n);
+		for (int i = 0; i < n; i++)
+			cin >> v[i].x >> v[i].y;
+		//x축 방향 기준으로 정렬
+		sort(v.begin(), v.end(), oper_x);
+		//아무런 거리 하나 잡아서
+		int dis = v[0].distance(v[1]);
+		set<Point> s; s.insert(v[0]), s.insert(v[1]);
+		int start = 0;
+		int x_diff;
+		for (int i = 2; i < n; i++) {
+			p1 = v[i]; //p1 
+			while (start < i) {
+				p2 = v[start];
+				x_diff = p2.x - p1.x;
+				if (x_diff * x_diff > dis) {
+					//거리가 더 크면 그냥 버리기
+					s.erase(p2);
+					start++;
+				}
+				else
+					break;
+			}
+			int d = (int)(sqrt((double)dis) + 1);
+			auto up = s.upper_bound(Point(100000, p1.y + d));
+			auto low = s.lower_bound(Point(-100000, p1.y - d));
+
+			while (low != up) {
+				int temp = p1.distance(*low);
+				if (temp < dis)
+					dis = temp;
+				low++;
+			}
+			s.insert(p1);
+
+		}
+		cout << dis << '\n';
+		
+	}
+
+
+// 백준 6549번 히스토그램에서 가장 큰 직사각형
+/*
 #include<stack>
 	int arr[100001] = { 0, };
 	int main() {
@@ -46,7 +124,7 @@
 			cout << area << '\n';
 			cin >> n;
 		}
-	}
+	}*/
 
 // 백준 2749번 피보나치수
 /*
