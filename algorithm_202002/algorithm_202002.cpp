@@ -4,7 +4,55 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 1780번 종이의 갯수
+int arr[2200][2200] = { 0, };
+int answer[3] = { 0, };
+void find(int row, int col, int size) {
+	if (size == 1) {
+		answer[arr[row][col] + 1]++;
+		return;
+	}
+	int k = arr[row][col];
+	int check_di = false;
+	int cellcount = size * size;
+	for (int i = 1; i < cellcount; i++) {
+		if (arr[row + (i / size)][col + (i % size)] != k) {
+			check_di = true;
+			break;
+		}
+	}
+	if (check_di) {
+		int per_size = size / 3;
+		for (int i = 0; i < 3; ++i) {
+			for (int j = 0; j < 3; ++j) {
+				find(row + per_size *i, col + per_size *j, per_size);
+			}
+		}
+	}
+	else {
+		answer[k + 1]++;
+	}
+}
+int main() {
+	int n;
+	cin.tie(0);
+	for (int i = 0; i < 3; i++) {
+		answer[i] = 0;
+	}
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	find(0, 0, n);
+	for (int i = 0; i < 3; i++) {
+		cout << answer[i] << '\n';
+	}
+}
+
 // 백준 1992번 쿼드트리
+/*
 int arr[64][64] = { 0, };
 void find(int row, int col, int size) {
 	if (size == 1) {
@@ -47,6 +95,7 @@ int main() {
 	}
 	find(0, 0, n);
 }
+*/
 
 // 백준 2630번 색종이 만들기 
 /*
