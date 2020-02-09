@@ -4,7 +4,51 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1021번 회전하는 큐
+// 백준 2630번 색종이 만들기 /*
+int blue = 0, white = 0;
+int arr[128][128] = { 0, };
+void find(int row, int col, int size) {
+	if (size==1) {
+		arr[row][col] == 1 ? blue++ : white++;
+		return;
+	}
+	int k = arr[row][col];
+	int check_di = false;
+	int cellcount = size * size;
+	for (int i = 1; i < cellcount; i++) {
+		if (arr[row + (i / size)][col + (i % size)] != k) {
+			check_di = true;
+			break;
+		}
+	}
+	if (check_di) {
+		int half_size = size / 2;
+		find(row, col, half_size);
+		find(row, col + half_size, half_size);
+		find(row + half_size, col, half_size);
+		find(row + half_size, col + half_size, half_size);
+	}
+	else {
+		k == 1 ? (blue++) : (white++);
+	}
+}
+int main() {
+	int n;
+	cin.tie(0);
+	blue = 0; white = 0;
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+		}
+	}
+	find(0, 0, n);
+	cout << white << '\n' << blue << '\n';
+}
+
+
+// 백준 1021번 회전하는 큐 
+/*
 #include<deque>
 int main() {
 	int count = 0;
@@ -51,7 +95,7 @@ int main() {
 	}
 	cout << count;
 }
-
+*/
 
 // 백준 1966번 프린터 큐
 /*
