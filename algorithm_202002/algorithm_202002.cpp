@@ -5,7 +5,50 @@
 	#include<algorithm>
 	using namespace std;
 
+// 백준 1654번 랜선자르기
+	int n, k;
+	vector<long long>v(10001,0);
+	bool possible(long long len) {
+		int cnt = 0;
+		for (int i = 0; i < k; i++) {
+			cnt += v[i] / len;
+
+		}
+
+		if (cnt >= n)
+			return true;
+		return false;
+	}
+
+	int main() {
+		cin.sync_with_stdio(false);
+		cin.tie(0);
+		cin >> k >> n;
+		long long max_sun = 0;
+		for (int i = 0; i < k; i++) {
+			cin >> v[i];
+			max_sun = max(max_sun, v[i]);
+		}
+		long long result = 0, first = 1;
+		while (first <= max_sun) {
+			long long mid = (first + max_sun) / 2;
+			if (possible(mid)) {
+				result = max(result, mid);
+
+				first = mid + 1;
+			}
+			else {
+				max_sun = mid - 1;
+			}
+		
+		}
+		cout << result << '\n';
+		
+	}
+
+
 // 백준 10816번 숫자 카드2
+/*
 
 	int main() {
 		cin.sync_with_stdio(false);
@@ -24,7 +67,7 @@
 			cout << upper_bound(v.begin(), v.end(), num) - lower_bound(v.begin(), v.end(), num) << ' ';
 		}
 	}
-
+	*/
 
 // 백준 1920번 수찾기 
 /*
