@@ -1,10 +1,30 @@
 
 //여기부터 복사 제출
-#include <iostream>
-#include<algorithm>
-using namespace std;
+	#include <iostream>
+	#include<algorithm>
+	using namespace std;
 
-// 백준 10830번 행렬 제곱
+	// 백준 2749번 피보나치수
+	long long a[1500050];
+	int INF = 1000000;
+	void find() {
+		a[0] = 0;
+		a[1] = 1;
+		for (int i = 0; i < 1500000; i++) {
+			a[i + 2] = (a[i + 1] + a[i])%INF;
+		
+		}
+		return;
+	}
+	int main() {
+		find();
+		long long n;
+		cin >> n;
+		cout << a[n % 1500000] << "\n";
+	}
+
+// 백준 10830번 행렬 제곱 
+/*
 #include <iostream>
 using namespace std;
 long long a[6][6], ans[6][6], c[6][6], n, b;
@@ -52,7 +72,7 @@ int main() {
 			cout << ans[i][j] << ' ';
 		cout << '\n';
 	}
-}
+}*/
 
 // 백준 2740번 행렬 
 /*
