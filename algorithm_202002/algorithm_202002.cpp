@@ -5,7 +5,9 @@
 	#include<algorithm>
 	using namespace std;
 
-// 백준 1654번 랜선자르기
+
+// 백준 1654번 랜선자르기 
+/*
 	int n, k;
 	vector<long long>v(10001,0);
 	bool possible(long long len) {
@@ -44,7 +46,7 @@
 		}
 		cout << result << '\n';
 		
-	}
+	}*/
 
 
 // 백준 10816번 숫자 카드2
