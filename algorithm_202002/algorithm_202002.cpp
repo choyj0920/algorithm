@@ -4,7 +4,54 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1629번 곱셈
+// 백준 11401번 이항계수 
+long long fac[4000001], n, k;
+long long inv[4000001];//x!
+
+#define MOD 1000000007
+long long power(long long a, long long b) {
+	long long result = 1;
+	while (b > 0) {
+		if (b % 2) {
+			result *= a;
+			result %= MOD;
+		}
+		a *= a;
+		a %= MOD;
+		b /= 2;
+	}
+	return result;
+}
+
+
+int main() {
+	fac[1] = 1;
+	for (int i = 2; i <= 4000000; i++) {
+		//팩토리얼 구하기 
+		fac[i] = (fac[i - 1] * i) % MOD;
+	}
+	//페르마의 소정리를 이용 fac의 inverse 구하기
+	inv[4000000] = power(fac[4000000], MOD - 2);
+	for (int i = 4000000 - 1; i > 0; i--) {
+		inv[i] = (inv[i + 1] * (i + 1)) % MOD;
+		
+	}
+	cin.tie(0);
+	cin >> n >> k;
+	if (n == k || !k) {
+		cout << 1 << '\n';
+	}
+	else {
+		long long result = (fac[n] * inv[n - k] % MOD);
+		result = (result * inv[k]) % MOD;
+		cout << result << '\n';
+			
+	}
+	   
+}
+
+// 백준 1629번 곱셈 
+/*
 
 long long findpow(const int& a, const int& b,const int &c) {
 	if (b == 1)
@@ -24,7 +71,7 @@ int main() {
 	cin >> a >> b >> c;
 	cout << findpow(a, b, c);
 }
-
+*/
 
 // 백준 1780번 종이의 갯수 
 /*
