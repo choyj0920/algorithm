@@ -4,7 +4,47 @@
 	#include<algorithm>
 	using namespace std;
 
-// 백준 2261번 가장 가까운 두 잠
+// 백준 1920번 수찾기 
+	int arr[100001] = { 0, };
+	void _Bsearch(int first, int last, int target) {
+		int mid;
+		while (last - first >= 0) {
+			mid = (first + last) / 2;
+
+			if (arr[mid] == target) {
+				cout << "1\n";
+				return;
+			}
+			else if (arr[mid] > target) {
+				last = mid - 1;
+			}
+			else {
+				first = mid + 1;
+			}
+		}
+		cout << "0\n";
+		return;
+	}
+	int main() {
+		cin.tie(0); cout.tie(0);
+		cin.sync_with_stdio(false);
+
+		int n, m;
+		cin >> n;
+		for (int i = 0; i < n; i++) {
+			cin >> arr[i];
+		}
+		sort(arr, arr + n);
+		cin >> m;
+		int find;
+		for (int i = 0; i < m; i++) {
+			cin >> find;
+			_Bsearch(0, n - 1, find);
+		}
+	}
+
+// 백준 2261번 가장 가까운 두 잠 
+/*
 #include <vector>
 #include <set>
 #include <cmath>
@@ -78,7 +118,7 @@
 		}
 		cout << dis << '\n';
 		
-	}
+	}*/
 
 
 // 백준 6549번 히스토그램에서 가장 큰 직사각형
