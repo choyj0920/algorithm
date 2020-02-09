@@ -4,25 +4,70 @@
 	#include<algorithm>
 	using namespace std;
 
-	// 백준 2749번 피보나치수
-	long long a[1500050];
-	int INF = 1000000;
-	void find() {
-		a[0] = 0;
-		a[1] = 1;
-		for (int i = 0; i < 1500000; i++) {
-			a[i + 2] = (a[i + 1] + a[i])%INF;
-		
-		}
-		return;
-	}
+// 백준 6549번 히스토그램에서 가장 큰 직사각형 /*
+#include<stack>
+	int arr[100001] = { 0, };
 	int main() {
-		find();
-		long long n;
+		
+		int n;
 		cin >> n;
-		cout << a[n % 1500000] << "\n";
+		while (n) {
+			for (int i = 0; i < n; i++) {
+				cin >> arr[i];
+			}
+			stack<int> s;
+			long long area = 0;
+			for (int i = 0; i < n; i++) {
+				long long left = i;
+				while (!s.empty() && arr[s.top()] > arr[i]) {
+					long long height = arr[s.top()];
+					s.pop();
+					long long width = i;
+					if (!s.empty()) {
+						width = (i - s.top() - 1);
+					}
+					if (area < width* height)
+						area = width * height;
+
+				}
+				s.push(i);
+			}
+			while (!s.empty()) {
+				long long height = arr[s.top()];
+				s.pop();
+				long long width = n;
+				if (!s.empty()) {
+					width = n - s.top() - 1;
+
+				}
+				if (area < width * height)
+					area = width * height;
+			}
+			cout << area << '\n';
+			cin >> n;
+		}
 	}
 
+// 백준 2749번 피보나치수
+/*
+long long a[1500050];
+int INF = 1000000;
+void find() {
+	a[0] = 0;
+	a[1] = 1;
+	for (int i = 0; i < 1500000; i++) {
+		a[i + 2] = (a[i + 1] + a[i])%INF;
+	
+	}
+	return;
+}
+int main() {
+	find();
+	long long n;
+	cin >> n;
+	cout << a[n % 1500000] << "\n";
+}
+*/
 // 백준 10830번 행렬 제곱 
 /*
 #include <iostream>
