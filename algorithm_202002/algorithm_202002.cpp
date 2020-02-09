@@ -4,7 +4,52 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 2630번 색종이 만들기 /*
+// 백준 1992번 쿼드트리
+int arr[64][64] = { 0, };
+void find(int row, int col, int size) {
+	if (size == 1) {
+		cout << arr[row][col];
+		return;
+	}
+	int k = arr[row][col];
+	int check_di = false;
+	int cellcount = size * size;
+	for (int i = 1; i < cellcount; i++) {
+		if (arr[row + (i / size)][col + (i % size)] != k) {
+			check_di = true;
+			break;
+		}
+	}
+	if (check_di) {
+		int half_size = size / 2;
+		cout << '(';
+		find(row, col, half_size);
+		find(row, col + half_size, half_size);
+		find(row + half_size, col, half_size);
+		find(row + half_size, col + half_size, half_size);
+		cout << ')';
+	}
+	else {
+		cout << k;
+	}
+}
+
+int main() {
+	int n;
+	cin.tie(0);
+	cin >> n;
+	for (int i = 0; i < n; i++) {
+		for (int j = 0; j < n; j++) {
+			char a;
+			cin >> a;
+			arr[i][j] = (a == '1' ? 1 : 0);
+		}
+	}
+	find(0, 0, n);
+}
+
+// 백준 2630번 색종이 만들기 
+/*
 int blue = 0, white = 0;
 int arr[128][128] = { 0, };
 void find(int row, int col, int size) {
@@ -45,7 +90,7 @@ int main() {
 	find(0, 0, n);
 	cout << white << '\n' << blue << '\n';
 }
-
+*/
 
 // 백준 1021번 회전하는 큐 
 /*
