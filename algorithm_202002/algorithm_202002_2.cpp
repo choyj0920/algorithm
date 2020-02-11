@@ -6,7 +6,33 @@
 using namespace std;
 
 
-// 백준 1300번 k번쨰 수
+// 백준 12015번 가장 긴 증가하는 부분 수열 2
+
+int main() {
+	int n;
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> n;
+	vector<int >v;
+	v.push_back(0);
+	int num;
+	int cnt = 0;
+	for (int i = 0; i < n; i++) {
+		cin >> num;
+		if (num > v.back()) {
+			v.push_back(num);
+			cnt++;
+		}
+		else {//이 부분 추가 여지두는 그런 //참고로 이부분이 이진 탐색
+			auto low = lower_bound(v.begin(), v.end(), num);
+			*low = num;
+		}
+	}
+	cout << cnt;
+}
+
+
+// 백준 1300번 k번쨰 수 
+/*
 int main() {
 	int n, k;
 	cin.tie(0);
@@ -30,7 +56,7 @@ int main() {
 		}
 	}
 	cout << result << '\n';
-}
+}*/
 
 // 백준 2110번 공유기 설치
 /*
