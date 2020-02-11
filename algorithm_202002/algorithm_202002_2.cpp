@@ -6,7 +6,35 @@
 using namespace std;
 
 
-// 백준 12015번 가장 긴 증가하는 부분 수열 2
+// 백준 11279번 최대힙
+#include<queue>
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	int n;
+	cin >> n;
+	priority_queue<int> pq;
+	for (int i = 0; i < n; i++) {
+		int num;
+		cin >> num;
+		if (num == 0) {
+			if (pq.empty())
+				cout << 0 << '\n';
+			else {
+				cout << pq.top() << '\n';
+				pq.pop();
+			}
+
+		}
+		else {
+			pq.push(num);
+		}
+	}
+	
+}
+
+
+// 백준 12015번 가장 긴 증가하는 부분 수열 2 
+/*
 
 int main() {
 	int n;
@@ -29,7 +57,7 @@ int main() {
 	}
 	cout << cnt;
 }
-
+*/
 
 // 백준 1300번 k번쨰 수 
 /*
