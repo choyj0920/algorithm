@@ -2,11 +2,56 @@
 ///여기부터 복사 제출
 #include <iostream>
 #include<vector>
+#include<queue>
 #include<algorithm>
 using namespace std;
 
 
+// 백준 11286번 절댓값 힙
+struct absolute_INT
+{
+	absolute_INT(const int& x) :x(x) {
+
+	}
+	int x;
+	bool operator<(const absolute_INT& aa) const {
+		if ((x > 0 ? x : -x) == (aa.x > 0 ? aa.x : -aa.x)) {
+			return x > aa.x;
+		}
+		return  (x > 0 ? x : -x) > (aa.x > 0 ? aa.x : -aa.x);
+	}
+};
+
+ostream& operator<<(ostream& out, const absolute_INT& aa) {
+	out << aa.x;
+	return out;
+}
+
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	int n;
+	cin >> n;
+	priority_queue<absolute_INT> pq;
+	for (int i = 0; i < n; i++) {
+		int num;
+		cin >> num;
+		if (num == 0) {
+			if (pq.empty())
+				cout << 0 << '\n';
+			else {
+				cout << pq.top() << '\n';
+				pq.pop();
+			}
+
+		}
+		else {
+			pq.push(num);
+		}
+	}
+}
+
 // 백준 1927번 최소힙 
+/*
 #include<queue>
 int main() {
 	cin.tie(0); cin.sync_with_stdio(false);
@@ -29,7 +74,8 @@ int main() {
 			pq.push(-num);
 		}
 	}
-}
+}*/
+
 // 백준 11279번 최대힙 
 /*
 #include<queue>
