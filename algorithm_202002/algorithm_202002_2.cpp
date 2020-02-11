@@ -7,7 +7,49 @@
 using namespace std;
 
 
-// 백준 11286번 절댓값 힙
+// 백준 1655번 가운데를 말해요
+priority_queue<int> pq1;
+priority_queue<int, vector<int>, greater<int>> pq2;
+int main() {
+	// 구니까 그냥 pq 두개를 활용해서 하나의 1~n의 배열을 
+	// 1~k까지는 top이 최대 값인 pq1에  
+	// k~n까지는 top이 최소 값인 pq2에 넣게하여, pq1의 모든 원소는 pq2의 탑보다 작음
+	//+ k는 n/2로 유지, 그리 하여 중간 값을 계속 추적 가능하게 설정
+	
+	cin.tie(0); cin.sync_with_stdio(false);
+	
+	int n;
+	cin >> n;
+	int num;
+	for (int i = 0; i < n; i++) {
+		cin >> num;
+		if (pq1.empty() || pq1.top() >= num) {
+			pq1.push(num);
+			if (pq1.size() > pq2.size() + 1) {
+				pq2.push(pq1.top());
+				pq1.pop();
+			}
+		}
+		else if (pq2.empty() || pq2.top() <= num) {
+			pq2.push(num);
+			if (pq2.size() > pq1.size()) {
+				pq1.push(pq2.top());
+				pq2.pop();
+			}
+		}
+		else if (pq1.size() <= pq2.size()) {
+			pq1.push(num);
+		}
+		else if (pq1.size() > pq2.size()) {
+			pq2.push(num);
+		}
+		cout << pq1.top() << '\n';
+	}
+
+}
+
+// 백준 11286번 절댓값 힙 
+/*
 struct absolute_INT
 {
 	absolute_INT(const int& x) :x(x) {
@@ -49,6 +91,7 @@ int main() {
 		}
 	}
 }
+*/
 
 // 백준 1927번 최소힙 
 /*
