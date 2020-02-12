@@ -7,7 +7,31 @@
 using namespace std;
 
 
-// 백준 1655번 가운데를 말해요
+// 백준 2293번 동전1
+#define MAX_KINDS 100
+#define MAX_VALUE 100000
+int coin[MAX_KINDS] = { 0 , };
+int dp[10001] = { 0, };
+int main() {
+	int n, k;
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> n >> k;
+	dp[0] = 1;
+	for (int i = 0; i < n; i++) {
+		cin >> coin[i];
+	}
+	for (int i = 0; i < n; i++) {
+		for (int j = 1; j <= k; j++) {
+			if (j - coin[i] >= 0) {
+				dp[j] += dp[j - coin[i]];
+			}
+		}
+	}
+	cout << dp[k] << '\n';
+}
+
+// 백준 1655번 가운데를 말해요 
+/*
 priority_queue<int> pq1;
 priority_queue<int, vector<int>, greater<int>> pq2;
 int main() {
@@ -46,7 +70,7 @@ int main() {
 		cout << pq1.top() << '\n';
 	}
 
-}
+}*/
 
 // 백준 11286번 절댓값 힙 
 /*
