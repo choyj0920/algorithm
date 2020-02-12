@@ -6,7 +6,36 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 7579번 앱 어려워 잘모르겠다
+// 백준 10942번 팰린드롬?
+int arr[2001];
+bool dp[2001][2001];
+int n, m;
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> n;
+	for (int i = 1; i <= n; i++) {
+		cin >> arr[i];
+		dp[i][i] = true;
+	}
+	for (int i = 1; i <= n - 1; i++) {
+		dp[i][i + 1] = dp[i + 1][i] = (arr[i] == arr[i + 1]);
+	}
+	for (int i = 2; i < n; i++) {
+		for (int j = 1; j <= n - i; j++) {
+			dp[j][j + i] = dp[j + i][j] = (arr[j] == arr[j + i] && dp[j + 1][j + i - 1]);
+		}
+	}
+	cin >> m;
+	int s, e;
+	while (m--) {
+		cin >> s >> e;
+		cout << dp[s][e] << '\n';
+	}
+}
+
+
+// 백준 7579번 앱 어려워 잘모르겠다 
+/*
 int memory[100], cost[100];
 int dp[100][10001];//[i][비요ㅕㅇ]= 확보되는 메모리
 int n, m;
@@ -45,7 +74,7 @@ int main() {
 		totalCost++;
 	}
 
-}
+}*/
 
 // 백준 1520번 내리막 길--dp가아닌 느낌으로 ..
 /*
