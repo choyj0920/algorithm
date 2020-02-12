@@ -6,7 +6,45 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 11049번 행렬 곱셈 순서
+// 백준 1520번 내리막 길--dp가아닌 느낌으로 ..
+int arr[501][501];
+int dp[501][501] = { 0, };
+int m, n;
+
+void setdp(const int& i,const int& j) {
+	if (i > 0 && arr[i][j] < arr[i - 1][j])
+		dp[i][j] += dp[i - 1][j];
+	if (i < m - 1 && arr[i][j] < arr[i + 1][j])
+		dp[i][j] += dp[i + 1][j];
+	if (j > 0 && arr[i][j] < arr[i][j - 1])
+		dp[i][j] += dp[i][j - 1];
+	if (j < n - 1 && arr[i][j] < arr[i][j + 1])
+		dp[i][j] += dp[i][j + 1];
+	return;
+}
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+
+	cin >> m >> n;
+	vector < pair<int, pair<int, int>>> v;
+	for (int i = 0; i < m; i++) {
+		for (int j = 0; j < n; j++) {
+			cin >> arr[i][j];
+			v.push_back(make_pair(arr[i][j], make_pair(i, j)));
+		}
+	}
+	dp[0][0] = 1;
+	sort(v.begin(), v.end());
+	reverse(v.begin(), v.end());
+	for (auto it : v) {
+		setdp(it.second.first, it.second.second);
+	}
+	cout << dp[m - 1][n - 1];
+}
+
+
+// 백준 11049번 행렬 곱셈 순서 
+/*
 int arr[501][2] = { 0, };
 int dp[501][501];
 int find_dp(int i, int j) {
@@ -31,7 +69,7 @@ int main() {
 		cin >> arr[i][0] >> arr[i][1];
 	}
 	cout << find_dp(1, N) << "\n";
-}
+}*/
 
 // 백준 11066번 파일 합치기 
 /*
