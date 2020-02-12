@@ -6,8 +6,35 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 11049번 행렬 곱셈 순서
+int arr[501][2] = { 0, };
+int dp[501][501];
+int find_dp(int i, int j) {
+	if (i == j)
+		return 0;
+	if (dp[i][j] != 0) return dp[i][j];
 
-// 백준 11066번 파일 합치기
+	for (int k = i; k < j; k++) {
+		int temp = find_dp(i, k) + find_dp(k + 1, j) + arr[i][0] * arr[k][1] * arr[j][1];
+		if (dp[i][j] == 0 || dp[i][j] > temp)
+			dp[i][j] = temp;
+	}
+	return dp[i][j];
+}
+
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	int N;
+	cin >> N;
+
+	for (int i = 1; i <= N; i++) {
+		cin >> arr[i][0] >> arr[i][1];
+	}
+	cout << find_dp(1, N) << "\n";
+}
+
+// 백준 11066번 파일 합치기 
+/*
 #include <cstring>
 int arr[501] = { 0, };
 int sum[501];
@@ -41,7 +68,7 @@ int main() {
 		}
 		cout << find_dp(1, N) << "\n";
 	}
-}
+}*/
 
 // 백준 2293번 동전1
 /*
