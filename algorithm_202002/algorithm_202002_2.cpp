@@ -7,7 +7,44 @@
 using namespace std;
 
 
+// 백준 11066번 파일 합치기
+#include <cstring>
+int arr[501] = { 0, };
+int sum[501];
+int dp[501][501];
+
+int find_dp(int i, int j) {
+	if (i == j)
+		return 0;
+	if (dp[i][j] != -1) return dp[i][j];
+	
+	for (int k = i; k < j; k++) {
+		int temp = find_dp(i, k) + find_dp(k + 1, j) + sum[j] - sum[i - 1];
+		if (dp[i][j] == -1 || dp[i][j] > temp)
+			dp[i][j] = temp;
+	}
+	return dp[i][j];
+}
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	int tastT, k; 
+	cin >> tastT;
+	while (tastT--) {
+		memset(dp, -1, sizeof(dp));
+		memset(sum, 0, sizeof(sum));
+		int N;
+		cin >> N;
+
+		for (int i = 1; i <= N; i++) {
+			cin >> arr[i];
+			sum[i] = sum[i - 1] + arr[i];
+		}
+		cout << find_dp(1, N) << "\n";
+	}
+}
+
 // 백준 2293번 동전1
+/*
 #define MAX_KINDS 100
 #define MAX_VALUE 100000
 int coin[MAX_KINDS] = { 0 , };
@@ -29,6 +66,7 @@ int main() {
 	}
 	cout << dp[k] << '\n';
 }
+*/
 
 // 백준 1655번 가운데를 말해요 
 /*
