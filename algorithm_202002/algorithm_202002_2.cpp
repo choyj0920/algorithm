@@ -6,7 +6,7 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 7579번 앱
+// 백준 7579번 앱 어려워 잘모르겠다
 int memory[100], cost[100];
 int dp[100][10001];//[i][비요ㅕㅇ]= 확보되는 메모리
 int n, m;
