@@ -6,7 +6,49 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 7579번 앱
+int memory[100], cost[100];
+int dp[100][10001];//[i][비요ㅕㅇ]= 확보되는 메모리
+int n, m;
+int finddp(int index, int totalcost) {
+	if (index >= n) {
+		return 0;
+	}
+	
+	int& result = dp[index][totalcost];
+	if (result != 0) {
+		return result;
+	}
+	result = finddp(index + 1, totalcost); //해당앱 비활 x
+	
+	if (cost[index] <= totalcost) {//이번 비용이 이전까지 쓴 비용보다 작은 경우
+		result = max(result, memory[index] + finddp(index + 1, totalcost - cost[index]));
+	}
+	return result;
+}
+
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	
+	cin >> n >> m;
+	for (int i = 0; i < n; i++)
+		cin >> memory[i];
+	for (int i = 0; i < n; i++)
+		cin >> cost[i];
+	int totalCost = 0;
+	while (1) {
+		if (finddp(0, totalCost) >= m)
+		{
+			cout << totalCost << endl;
+			break;
+		}
+		totalCost++;
+	}
+
+}
+
 // 백준 1520번 내리막 길--dp가아닌 느낌으로 ..
+/*
 int arr[501][501];
 int dp[501][501] = { 0, };
 int m, n;
@@ -41,7 +83,7 @@ int main() {
 	}
 	cout << dp[m - 1][n - 1];
 }
-
+*/
 
 // 백준 11049번 행렬 곱셈 순서 
 /*
