@@ -6,7 +6,57 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 1012번 유기농 배추
+#include <cstring>
+int arr[51][51];
+int n,m;
+int T;
+int k;
+int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
+void dfs(int a, int b, int cnt) {
+	arr[a][b] = cnt;
+	
+	for (int i = 0; i < 4; i++) {
+		int r = a + check4[i][0];
+		int c = b + check4[i][1];
+
+		if (r >= 1 && r <= n && c >= 1 && c <= m && arr[r][c] == 1) {
+			dfs(r, c, cnt);
+		}
+	}
+}
+
+
+int main() {
+	
+	cin >> T;
+	
+	while (T--) {
+		cin >> m >> n >> k;
+		int a, b;
+		int cnt = 0;
+		memset(arr, 0, 51 * 51);
+
+		for (int i = 0; i < k; i++) {
+			cin >> a >> b;
+			arr[b+1][a+1] = 1;
+		}
+
+		for (int i = 1; i <= n; i++) {
+			for (int j = 1; j <= m; j++) {
+				if (arr[i][j] == 1) {
+					cnt++;
+					dfs(i, j, cnt + 1);
+				}
+			}
+		}
+		cout << cnt << '\n';
+	}
+		
+}
+
 // 백준 2667번 단지번호 붙이기
+/*
 int danjicnt[400] = { 0, }, arr[26][26];
 int n;
 int cnt;
@@ -49,7 +99,7 @@ int main() {
 	for (int i = 0; i < cnt; i++) {
 		cout << danjicnt[i] << '\n';
 	}
-}
+}*/
 
 // 백준 2606번 바이러스
 /*
