@@ -6,7 +6,53 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 2667번 단지번호 붙이기
+int danjicnt[400] = { 0, }, arr[26][26];
+int n;
+int cnt;
+
+int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
+void dfs(int a, int b, int cnt) {
+	arr[a][b] = cnt;
+	danjicnt[cnt - 2]++;
+	for (int i = 0; i < 4; i++) {
+		int r = a + check4[i][0];
+		int c = b + check4[i][1]; 
+
+		if (r >= 1 && r <= n && c >= 1 && c <= n && arr[r][c] == 1) {
+			dfs(r, c, cnt);
+		}
+	}
+}
+
+
+int main() {
+	cin >> n;
+	char c;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			cin >> c;
+			arr[i][j] = (c == '1' ? 1 : 0);
+		}
+	}
+	
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= n; j++) {
+			if (arr[i][j] == 1) {
+				cnt++;
+				dfs(i, j, cnt + 1);
+			}
+		}
+	}
+	sort(danjicnt, danjicnt + cnt);
+	cout << cnt << '\n';
+	for (int i = 0; i < cnt; i++) {
+		cout << danjicnt[i] << '\n';
+	}
+}
+
 // 백준 2606번 바이러스
+/*
 
 int visit[101] = { 0, }, mat[101][101] = { 0, };
 int n, m, v;
@@ -31,6 +77,7 @@ int main() {
 	dfs(1);
 	cout << result - 1 << '\n';
 }
+*/
 
 // 백준 1260번 DFS와 BFS 
 /*
