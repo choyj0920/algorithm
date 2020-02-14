@@ -6,7 +6,48 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1012번 유기농 배추
+// 백준 2178번 미로 탐색
+
+int n, m, arr[101][101] = { 0, };
+int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
+
+void bfs() {
+	int cnt = 2;
+	queue<pair<int, int>> que;
+	arr[1][1] = cnt;
+	que.push(pair<int,int>(1,1));
+	while (!que.empty()) {
+		pair<int,int> k= que.front();
+		que.pop();
+		int _cnt = arr[k.first][k.second];
+		for (int i = 0; i < 4; i++) {
+			int a = k.first + check4[i][0];
+			int b = k.second + check4[i][1];
+			if (a >= 1 && a <= n && b >= 1 && b <= m && arr[a][b] == 1) {
+				arr[a][b] = _cnt + 1;
+				que.push(pair<int, int>(a,b));
+			}
+		}
+	}
+}
+
+int main() {
+	cin >> n >> m;
+	char c;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			cin >> c;
+			arr[i][j] = (c == '1' ? 1 : 0);
+		}
+	}
+	bfs();
+	cout << arr[n][m] - 1 << '\n';
+
+
+}
+
+// 백준 1012번 유기농 배추 
+/*
 #include <cstring>
 int arr[51][51];
 int n,m;
@@ -53,7 +94,7 @@ int main() {
 		cout << cnt << '\n';
 	}
 		
-}
+}*/
 
 // 백준 2667번 단지번호 붙이기
 /*
