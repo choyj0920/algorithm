@@ -3,19 +3,80 @@
 #include <iostream>
 #include<vector>
 #include<queue>
+#include<utility>
 #include<algorithm>
 using namespace std;
 
-// 백준 2178번 미로 탐색
+// 백준 7576번 토마토
+
+int m, n,h, cnt;
+int check4[6][3] = { {0,1,0},{0,-1,0},{1,0,0},{-1,0,0},{0,0,-1},{0,0,1} };
+int arr[101][101][101] = { 0, };
+queue < pair<int, pair<int, int>>> que;
+int found, total = 0;
+void bfs() {
+	int days = 0;
+	int size;
+	pair<int,pair<int,int>> k;
+	while (!que.empty()) {
+		size = que.size();
+		total += size;
+		if (total == n * m*h) {
+			cout << days << '\n';
+			break;
+		}
+		for (int j = 0; j < size; j++) {
+			k = que.front();
+			que.pop();
+
+			for (int i = 0; i < 6; i++) {
+				int a = k.first + check4[i][0];
+				int b = k.second.first + check4[i][1];
+				int c = k.second.second + check4[i][2];
+				if (a >= 0 && a < n && b >= 0 && b < m &&c>=0&&c<h&& arr[a][b][c] == 0) {
+					arr[a][b][c] = 1;
+					que.push(make_pair(a, make_pair(b, c)));
+				}
+			}
+		}
+		days++;
+	}
+	if (total != n * m * h)
+		cout << "-1" << '\n';
+
+}
+
+int main() {
+	cin >> m >> n >> h;
+	for (int k = 0; k < h; k++) {
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < m; j++) {
+				cin >> arr[i][j][k];
+				if (arr[i][j][k] == 1)
+					que.push(make_pair(i, make_pair(j, k)));
+				else if (arr[i][j][k] == -1)
+					total++;
+			}
+		}
+	}
+	
+	bfs();
+
+}
+
+
+// 백준 2178번 미로 탐색 
+/*
 
 int n, m, arr[101][101] = { 0, };
 int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
 
 void bfs() {
 	int cnt = 2;
-	queue<pair<int, int>> que;
+	queue < pair<int, int>> que;
+	que.push(make_pair(1, 1));
 	arr[1][1] = cnt;
-	que.push(pair<int,int>(1,1));
+
 	while (!que.empty()) {
 		pair<int,int> k= que.front();
 		que.pop();
@@ -45,6 +106,7 @@ int main() {
 
 
 }
+*/
 
 // 백준 1012번 유기농 배추 
 /*
