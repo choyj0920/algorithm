@@ -6,7 +6,34 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1260번 DFS와 BFS
+// 백준 2606번 바이러스
+
+int visit[101] = { 0, }, mat[101][101] = { 0, };
+int n, m, v;
+int result;
+void dfs(int k) {
+	visit[k] = 1;
+	result++;
+	for (int i = 1; i <= n; i++) {
+		if (!visit[i] && mat[k][i])
+			dfs(i);
+
+	}
+}
+int main() {
+	cin >> n >> m;
+	int a, b;
+	result = 0;
+	for (int i = 0; i < m; i++) {
+		cin >> a >> b;
+		mat[a][b] = mat[b][a] = 1;
+	}
+	dfs(1);
+	cout << result - 1 << '\n';
+}
+
+// 백준 1260번 DFS와 BFS 
+/*
 
 int visit[1001] = { 0, }, mat[1001][1001] = { 0, };
 int n, m, v;
@@ -46,7 +73,7 @@ int main() {
 	dfs(v);
 	cout << '\n';
 	bfs(v);
-}
+}*/
 
 // 백준 2618번 경찰차 
 /*
