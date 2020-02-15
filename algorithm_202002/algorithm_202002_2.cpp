@@ -13,31 +13,38 @@ using namespace std;
 int m, n;
 int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
 int arr[1001][1001] = { 0, };
-int visit[1001][1001] = { 0, };
-void bfs() {
-	visit[1][1] = 1;
-	queue<pair<int, int>> que;
-	que.push(make_pair(1, 1));
+int visit[1001][1001][2] = { 0, };
+int bfs() {
+	visit[1][1][0] = 1;
+	queue<pair<int, pair<int, int>>> que;
+	que.push(make_pair(0, make_pair(1, 1)));
+	
 	while (!que.empty()) {
-		pair<int, int> k = que.front();
-		int cnt = visit[k.first][k.second];
-		bool iswall = (arr[k.first][k.second] == 1);
+		pair<int, int> k = que.front().second;
+		int brokenwall = que.front().first;
+		int cnt = visit[k.first][k.second][brokenwall];
+		que.pop();
+		if (k.first == n && k.second == m) {
+			return cnt; //계속 틀리다가 이부분 추가했는데 갑자기 맞음..?뭐지
+		}
 		for (int i = 0; i < 4; i++) {
 			int a = k.first + check4[i][0];
 			int b = k.second + check4[i][1];
 			
-			if (a > 0 && a <= n && b > 0 && b <= m &&visit[a][b]==0) {
-				if (iswall && arr[a][b]==0) {//이전칸이 벽이 였으면
-					que.push(make_pair(a, b));
-					visit[a][b] = cnt + 1;
+			if (a > 0 && a <= n && b > 0 && b <= m) {
+				if (arr[a][b] == 1 && brokenwall==0 &&!visit[a][b][1]) {
+					visit[a][b][1] = cnt + 1;
+					que.push(make_pair(1, make_pair(a, b)));
 				}
-				else if (!iswall) {
-					que.push(make_pair(a, b));
-					visit[a][b] = cnt + 1;
+				else if (arr[a][b] == 0 && visit[a][b][brokenwall] == 0) {
+					visit[a][b][brokenwall] = cnt + 1;
+					que.push(make_pair(brokenwall, make_pair(a, b)));
 				}
 			}
 		}
+		
 	}
+	return -1;
 
 }
 
@@ -50,8 +57,7 @@ int main() {
 			arr[i][j] = (c == '1' ? 1 : 0);
 		}
 	}
-	bfs();
-	cout << visit[n][m] - 1 << '\n';
+	cout << bfs() << '\n';
 
 }
 
