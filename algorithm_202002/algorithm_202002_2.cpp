@@ -7,7 +7,56 @@
 #include<algorithm>
 using namespace std;
 
-// 백준 1697번 숨바꼭질
+
+// 백준 2206번 벽 부수고 이동하기
+
+int m, n;
+int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
+int arr[1001][1001] = { 0, };
+int visit[1001][1001] = { 0, };
+void bfs() {
+	visit[1][1] = 1;
+	queue<pair<int, int>> que;
+	que.push(make_pair(1, 1));
+	while (!que.empty()) {
+		pair<int, int> k = que.front();
+		int cnt = visit[k.first][k.second];
+		bool iswall = (arr[k.first][k.second] == 1);
+		for (int i = 0; i < 4; i++) {
+			int a = k.first + check4[i][0];
+			int b = k.second + check4[i][1];
+			
+			if (a > 0 && a <= n && b > 0 && b <= m &&visit[a][b]==0) {
+				if (iswall && arr[a][b]==0) {//이전칸이 벽이 였으면
+					que.push(make_pair(a, b));
+					visit[a][b] = cnt + 1;
+				}
+				else if (!iswall) {
+					que.push(make_pair(a, b));
+					visit[a][b] = cnt + 1;
+				}
+			}
+		}
+	}
+
+}
+
+int main() {
+	cin >> n >> m;
+	char c;
+	for (int i = 1; i <= n; i++) {
+		for (int j = 1; j <= m; j++) {
+			cin >> c;
+			arr[i][j] = (c == '1' ? 1 : 0);
+		}
+	}
+	bfs();
+	cout << visit[n][m] - 1 << '\n';
+
+}
+
+// 백준 1697번 숨바꼭질 
+/*
 int check3[3][2] = { {1,1},{-1,1},{0,2} };
 int n, k, kmax;
 int arr[200001] = { 0 };
@@ -39,7 +88,7 @@ int main() {
 	cout << arr[k] - 1 << '\n';
 	
 }
-
+*/
 // 백준 7569번 토마토 
 /*
 
