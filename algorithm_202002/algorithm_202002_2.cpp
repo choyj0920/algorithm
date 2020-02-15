@@ -7,6 +7,39 @@
 #include<algorithm>
 using namespace std;
 
+// 백준 1697번 숨바꼭질
+int check3[3][2] = { {1,1},{-1,1},{0,2} };
+int n, k, kmax;
+int arr[200001] = { 0 };
+void dfs() {
+	queue<int>que;
+	que.push(n);
+	arr[n] = 1;
+	while (!que.empty()) {
+		int x = que.front();
+		int _cnt = arr[x];
+		que.pop();
+		for (int i = 0; i < 3; i++) {
+			int a = (x + check3[i][0]) * check3[i][1];
+			if (a >= 0 && a <= kmax ) {
+				if (arr[a] == 0) {
+					arr[a] = _cnt + 1;
+					que.push(a);
+				}				
+			}
+		}
+	}
+}
+
+int main() {
+	cin >> n >> k;
+	kmax = 100001;
+
+	dfs();
+	cout << arr[k] - 1 << '\n';
+	
+}
+
 // 백준 7569번 토마토 
 /*
 
