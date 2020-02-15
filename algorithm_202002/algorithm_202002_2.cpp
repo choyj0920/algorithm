@@ -14,7 +14,7 @@ int m, n;
 int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
 int arr[1001][1001] = { 0, };
 int visit[1001][1001][2] = { 0, };
-int bfs() {
+void bfs() {
 	visit[1][1][0] = 1;
 	queue<pair<int, pair<int, int>>> que;
 	que.push(make_pair(0, make_pair(1, 1)));
@@ -24,9 +24,6 @@ int bfs() {
 		int brokenwall = que.front().first;
 		int cnt = visit[k.first][k.second][brokenwall];
 		que.pop();
-		if (k.first == n && k.second == m) {
-			return cnt; //계속 틀리다가 이부분 추가했는데 갑자기 맞음..?뭐지
-		}
 		for (int i = 0; i < 4; i++) {
 			int a = k.first + check4[i][0];
 			int b = k.second + check4[i][1];
@@ -44,7 +41,6 @@ int bfs() {
 		}
 		
 	}
-	return -1;
 
 }
 
@@ -57,7 +53,18 @@ int main() {
 			arr[i][j] = (c == '1' ? 1 : 0);
 		}
 	}
-	cout << bfs() << '\n';
+	bfs();
+
+	if (visit[n][m][0] == 0 && visit[n][m][1] == 0) {
+		cout << -1 << '\n';
+	}
+	else if(visit[n][m][0]*visit[n][m][1]==0){
+		cout << max(visit[n][m][0], visit[n][m][1]) << '\n';
+	}
+	else {
+		cout << min(visit[n][m][0], visit[n][m][1]) << '\n';
+
+	}
 
 }
 
