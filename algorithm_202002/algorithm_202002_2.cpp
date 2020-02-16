@@ -8,7 +8,120 @@
 using namespace std;
 
 
-// 백준 1504번 특정한 최단경로
+// 백준 9370번 미확인 도착지
+/*
+2
+5 4 2
+1 2 3
+1 2 6
+2 3 2
+3 4 4
+3 5 3
+5
+4
+6 9 2
+2 3 1
+1 2 1
+1 3 3
+2 4 4
+2 5 5
+3 4 3
+3 6 2
+4 5 4
+4 6 3
+5 6 7
+5
+6
+*/
+
+
+#define MAX_N 2001
+#define MAX_M 50001
+#define INF 987654321
+typedef struct NODE {
+	int end;
+	int cost;
+};
+
+// 각 노드의 엣지를 저장하는 벡터 
+// 0번 인덱스는 버린다. 
+vector<NODE> EDGE_arr[MAX_N];
+// 출발 노드에서부터의 거리를 저장하는 배열
+int dist[MAX_N] = { 0 };
+vector<int> dijkstra(int start, int vertex) {
+	vector<int> dis(vertex + 1, INF);
+	dis[start] = 0;
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
+	que.push({ 0,start });
+
+	while (!que.empty()) {
+		int cost = que.top().first;
+		int ver = que.top().second;
+		que.pop();
+
+		if (dis[ver] < cost)
+			continue;
+
+		for (int i = 0; i < EDGE_arr[ver].size(); i++) {
+			int node = EDGE_arr[ver][i].end;
+			int dis_to_node = cost + EDGE_arr[ver][i].cost;
+
+			if (dis[node] > dis_to_node) {
+				dis[node] = dis_to_node;
+				que.push({ dis_to_node,node });
+			}
+		}
+	}
+	return dis;
+}
+
+int main() {
+	int n, m, t, s, g, h;
+	int dest[101] = { 0, };
+	cin.tie(0); cin.sync_with_stdio(false);
+	int T;
+	cin >> T;
+	while (T--) {
+		cin >> n >> m >> t;
+		cin >> s >> g >> h;
+		int a, b, c;
+		for (int i = 1; i <= n; i++) {
+			EDGE_arr[i].clear();
+		}
+		for (int i = 0; i < m; i++) {
+			cin >> a >> b >> c;
+			EDGE_arr[a].push_back(NODE{ b, c });
+			EDGE_arr[b].push_back(NODE{ a, c });
+		}
+		for (int i = 0; i < t; i++) {
+			cin >> dest[i];
+		}
+		vector<int>from_s_dis = dijkstra(s, n);
+		vector<int>from_g_dis = dijkstra(g, n);
+		vector<int>from_h_dis = dijkstra(h, n);
+		vector<int>result;
+		for (int i = 0; i < t; i++) {
+			int dis_dest = from_s_dis[dest[i]];
+			if (dis_dest == from_s_dis[g] + from_g_dis[h] + from_h_dis[dest[i]] ||
+				dis_dest == from_s_dis[h] + from_h_dis[g] + from_g_dis[dest[i]])
+				result.push_back(dest[i]);
+		}
+		sort(result.begin(), result.end());
+
+		for (auto it : result) {
+			cout << it << ' ';
+		}
+		cout << '\n';
+	}
+	
+
+}
+
+
+
+// 백준 1504번 특정한 최단경로 
+/*
 #define MAX_N 801
 #define MAX_E 200001
 #define INF 987654321
@@ -73,7 +186,7 @@ int main() {
 		cout << answer << '\n';
 
 }
-
+*/
 
 // 백준 1753번 최단경로 
 /*
