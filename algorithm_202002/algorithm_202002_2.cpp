@@ -8,6 +8,73 @@
 using namespace std;
 
 
+// 백준 1504번 특정한 최단경로
+#define MAX_N 801
+#define MAX_E 200001
+#define INF 987654321
+typedef struct NODE {
+	int end;
+	int cost;
+};
+
+// 각 노드의 엣지를 저장하는 벡터 
+// 0번 인덱스는 버린다. 
+vector<NODE> EDGE_arr[MAX_E];
+// 출발 노드에서부터의 거리를 저장하는 배열
+int dist[MAX_N] = { 0 };
+int N, E;
+vector<int> dijkstra(int start,int vertex) {
+	vector<int> dis(vertex + 1, INF);
+	dis[start] = 0;
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
+	que.push({ 0,start });
+
+	while (!que.empty()) {
+		int cost = que.top().first;
+		int ver = que.top().second;
+		que.pop();
+
+		if (dis[ver] < cost)
+			continue;
+
+		for (int i = 0; i < EDGE_arr[ver].size(); i++) {
+			int node = EDGE_arr[ver][i].end;
+			int dis_to_node = cost + EDGE_arr[ver][i].cost;
+
+			if (dis[node] > dis_to_node) {
+				dis[node] = dis_to_node;
+				que.push({ dis_to_node,node });
+			}
+		}
+	}
+	return dis;
+}
+
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> N >> E;
+	int a, b, c;
+	int node1, node2;
+	for (int i = 0; i < E; i++) {
+		cin >> a >> b >> c;
+		EDGE_arr[a].push_back(NODE{ b, c });
+		EDGE_arr[b].push_back(NODE{ a, c });
+	}
+	cin >> node1 >> node2;
+	vector<int>from_1_dis = dijkstra(1, N);
+	vector<int>from_Node1_dis = dijkstra(node1, N);
+	vector<int>from_Node2_dis = dijkstra(node2, N);
+	int answer = min(from_1_dis[node1] + from_Node1_dis[node2] + from_Node2_dis[N],
+		from_1_dis[node2] + from_Node2_dis[node1] + from_Node1_dis[N]);
+	if (answer >= INF || answer < 0)
+		cout << -1 << '\n';
+	else
+		cout << answer << '\n';
+
+}
+
+
 // 백준 1753번 최단경로 
 /*
 
