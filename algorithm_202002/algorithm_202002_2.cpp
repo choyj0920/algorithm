@@ -8,7 +8,59 @@
 using namespace std;
 
 
-// 백준 11657번 타임머신
+// 백준 1865번 웜홀
+#define MAX_N 501
+#define INF 987654321
+int dist[MAX_N];
+bool cycle = 0;
+int N;
+vector<pair<int, int>> v[MAX_N];
+
+void bellmanFord(int vertex) {
+	for (int i = 1; i <= vertex; i++) {
+		//단순 반복 정점 j에 대한 갱신을 n^2 만큼 해주기 위해
+		for (int j = 1; j <= vertex; j++) {
+			for (auto it : v[j]) {
+				if (dist[j] != INF && dist[it.first] > it.second + dist[j]) {
+					if (i == vertex) 
+						//마지막에도 relax가 갱신 되는 것은 음의 순환이 존재
+						cycle = 1;
+					dist[it.first] = dist[j] + it.second;
+				}
+			}
+		}
+	}
+}
+int main() {
+	int TC;
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> TC;
+	int  M, W;
+	int S, E, T;
+	while (TC--) {
+		cin >> N >> M >> W;
+		fill(dist, dist + N + 1, INF);
+		dist[1] = 0;
+		cycle = 0;
+		for (int i = 0; i <= N; i++) 
+			v[i].clear();
+		while (M--) {
+			cin >> S >> E >> T;
+			v[S].push_back({ E,T });
+			v[E].push_back({ S,T });
+		}
+		while (W--) {
+			cin >> S >> E >> T;
+			v[S].push_back({ E,-T });
+		}
+		bellmanFord(N);
+		cout << (cycle ? "YES" : "NO") << '\n';
+	}
+}
+
+
+// 백준 11657번 타임머신 
+/*
 #define MAX_N 501
 #define MAX_M 6001
 #define INF 987654321
@@ -74,7 +126,7 @@ int main() {
 		}
 	bellmanFord(1, N);
 }
-
+*/
 
 // 백준 9370번 미확인 도착지 
 /*
