@@ -8,31 +8,77 @@
 using namespace std;
 
 
-// 백준 9370번 미확인 도착지
+// 백준 11657번 타임머신
+#define MAX_N 501
+#define MAX_M 6001
+#define INF 987654321
+
+int edge[MAX_N][MAX_N];
+vector<pair<int, int> > adj[MAX_N];
+void bellmanFord(int start, int vertex) {
+	vector<int> upper(vertex + 1, INF);
+	upper[start] = 0;
+	bool update = false;
+	
+	for (int i = 1; i <= vertex; i++) {
+		update = false;
+		for (int j = 1; j <= vertex; j++) {
+			//계속 업데이트
+			if (upper[j] == INF) {
+				//j가 업데이트 안됬으면 그냥 다음 반복으로
+				continue;
+			}
+			for (int k = 0; k < adj[j].size(); k++) {
+				//계속 업데이트 j와 연결되어 있는 
+				int ver = adj[j][k].first;
+				int cost = adj[j][k].second;
+				if (upper[ver] > upper[j] + cost) {
+					upper[ver] = upper[j] + cost;
+					update = true;
+				}
+			}
+		}
+		if (!update)
+			break;
+	}
+	if (update)
+		cout << -1 << endl;
+	else {
+		for (int i = 2; i <= vertex; i++) {
+			if (upper[i] == INF)
+				cout << -1 << '\n';
+			else
+				cout << upper[i] << '\n';
+		}
+	}
+}
+
+int main() {
+	int N, M;
+	int A, B, C;
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> N >> M;
+	for (int i = 1; i <= N; i++)
+		for (int j = 1; j <= N; j++) {
+			edge[i][j] = INF;
+		}
+	for (int i = 0; i < M; i++) {
+		cin >> A >> B >> C;
+		edge[A][B] = min(edge[A][B], C);
+	}
+
+	for (int i = 1; i <= N; i++)
+		for (int j = 1; j <= N; j++) {
+			if (edge[i][j] < INF)
+				adj[i].push_back({ j,edge[i][j] });
+		}
+	bellmanFord(1, N);
+}
+
+
+// 백준 9370번 미확인 도착지 
 /*
-2
-5 4 2
-1 2 3
-1 2 6
-2 3 2
-3 4 4
-3 5 3
-5
-4
-6 9 2
-2 3 1
-1 2 1
-1 3 3
-2 4 4
-2 5 5
-3 4 3
-3 6 2
-4 5 4
-4 6 3
-5 6 7
-5
-6
-*/
+
 
 
 #define MAX_N 2001
@@ -117,7 +163,7 @@ int main() {
 	
 
 }
-
+*/
 
 
 // 백준 1504번 특정한 최단경로 
