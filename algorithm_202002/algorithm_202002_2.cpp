@@ -7,9 +7,21 @@
 #include<algorithm>
 using namespace std;
 
+//코드포스 4a
+#include<stdio.h>
+int main() {
+	int w;
+	scanf_s(" %d", &w);
+	
+	printf((w % 2 ? "NO\n" : "YES\n"));
+	
+
+	return 0;
+}
+
 
 // 백준 2206번 벽 부수고 이동하기
-
+/*
 int m, n;
 int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
 int arr[1001][1001] = { 0, };
@@ -54,7 +66,7 @@ int main() {
 	cout << visit[n][m] - 1 << '\n';
 
 }
-
+*/
 // 백준 1697번 숨바꼭질 
 /*
 int check3[3][2] = { {1,1},{-1,1},{0,2} };
