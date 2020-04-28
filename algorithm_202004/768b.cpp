@@ -25,6 +25,7 @@ void solution(ll a, ll b, ll l, ll r, ll d) {
 }
 
 int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
 	cin >> n >> l >> r;
 	long long p = n;
 	
