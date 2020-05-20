@@ -6,26 +6,26 @@ using namespace std;
 vector<int> a;
 vector<int> dp;
 vector<int> ans;
-vector<vector<int>> g;
+vector<vector<pair<int,bool>>> g;
 
 void dfs(int v, int p = -1) {
-	dp[v] = a[v];
+	
 	for (auto to : g[v]) {
-		if (to == p) continue;
-		dfs(to, v);
-		dp[v] += max(dp[to], 0);
+		if (to.first == p) continue;		
+		dfs(to.first, v);
+		dp[v] += dp[to.first];
+		if (!to.second)
+			dp[v] += 1;
 	}
 }
 
 void dfs2(int v, int p = -1) {
 	ans[v] = dp[v];
 	for (auto to : g[v]) {
-		if (to == p) continue;
-		dp[v] -= max(0, dp[to]); //밑부분 제거하고
-		dp[to] += max(0, dp[v]); // 밑부분 계산에 위부분을 지나는 부분 더해줌
-		dfs2(to, v);
-		dp[to] -= max(0, dp[v]); //종료후 값 원래대로
-		dp[v] += max(0, dp[to]); //값 원래 대로
+		if (to.first == p) continue;
+		dp[to.first] = ans[v] + (to.second ? 1 : -1);		
+		dfs2(to.first, v);
+
 	}
 }
 
@@ -34,25 +34,28 @@ int main() {
 
 	int n;
 	cin >> n;
-	ans = vector<int>(n);
-	g = vector<vector<int>>(n);
+	dp=ans = vector<int>(n);
+	g = vector<vector<pair<int,bool>>>(n);
 	
 	for (int i = 0; i < n - 1; ++i) {
 		int x, y;
 		cin >> x >> y;
 		--x, --y;
-		g[x].push_back(y);		
+		g[x].push_back({ y, 1 });
+		g[y].push_back({ x, 0 });
 	}
 	int _min = n;
 	
-
-
+	dfs(0);
+	dfs2(0);
+	for (int i = 0; i < n; i++) {
+		_min = min(_min, ans[i]);
+	}
 	cout << _min << '\n';
 	for (int i = 0; i < n; i++) {
 		if (ans[i] == _min)
 			cout << i + 1 << ' ';
 	}
-	cout << endl;
-
+	cout << '\n';
 	return 0;
 }
