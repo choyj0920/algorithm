@@ -8,7 +8,16 @@
 using namespace std;
 
 
+// 백준 11404번 플로이드
+
+
+int main() {
+
+}
+
+
 // 백준 1865번 웜홀
+/*
 #define MAX_N 501
 #define INF 987654321
 int dist[MAX_N];
@@ -57,7 +66,7 @@ int main() {
 		cout << (cycle ? "YES" : "NO") << '\n';
 	}
 }
-
+*/
 
 // 백준 11657번 타임머신 
 /*
