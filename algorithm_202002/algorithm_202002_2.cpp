@@ -7,48 +7,342 @@
 #include<algorithm>
 using namespace std;
 
-//코드포스 4a
-#include<stdio.h>
-int main() {
-	int w;
-	scanf_s(" %d", &w);
-	
-	printf((w % 2 ? "NO\n" : "YES\n"));
-	
 
-	return 0;
+// 백준 11657번 타임머신
+#define MAX_N 501
+#define MAX_M 6001
+#define INF 987654321
+
+int edge[MAX_N][MAX_N];
+vector<pair<int, int> > adj[MAX_N];
+void bellmanFord(int start, int vertex) {
+	vector<int> upper(vertex + 1, INF);
+	upper[start] = 0;
+	bool update = false;
+	
+	for (int i = 1; i <= vertex; i++) {
+		update = false;
+		for (int j = 1; j <= vertex; j++) {
+			//계속 업데이트
+			if (upper[j] == INF) {
+				//j가 업데이트 안됬으면 그냥 다음 반복으로
+				continue;
+			}
+			for (int k = 0; k < adj[j].size(); k++) {
+				//계속 업데이트 j와 연결되어 있는 
+				int ver = adj[j][k].first;
+				int cost = adj[j][k].second;
+				if (upper[ver] > upper[j] + cost) {
+					upper[ver] = upper[j] + cost;
+					update = true;
+				}
+			}
+		}
+		if (!update)
+			break;
+	}
+	if (update)
+		cout << -1 << endl;
+	else {
+		for (int i = 2; i <= vertex; i++) {
+			if (upper[i] == INF)
+				cout << -1 << '\n';
+			else
+				cout << upper[i] << '\n';
+		}
+	}
+}
+
+int main() {
+	int N, M;
+	int A, B, C;
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> N >> M;
+	for (int i = 1; i <= N; i++)
+		for (int j = 1; j <= N; j++) {
+			edge[i][j] = INF;
+		}
+	for (int i = 0; i < M; i++) {
+		cin >> A >> B >> C;
+		edge[A][B] = min(edge[A][B], C);
+	}
+
+	for (int i = 1; i <= N; i++)
+		for (int j = 1; j <= N; j++) {
+			if (edge[i][j] < INF)
+				adj[i].push_back({ j,edge[i][j] });
+		}
+	bellmanFord(1, N);
 }
 
 
-// 백준 2206번 벽 부수고 이동하기
+// 백준 9370번 미확인 도착지 
 /*
+
+
+
+#define MAX_N 2001
+#define MAX_M 50001
+#define INF 987654321
+typedef struct NODE {
+	int end;
+	int cost;
+};
+
+// 각 노드의 엣지를 저장하는 벡터 
+// 0번 인덱스는 버린다. 
+vector<NODE> EDGE_arr[MAX_N];
+// 출발 노드에서부터의 거리를 저장하는 배열
+int dist[MAX_N] = { 0 };
+vector<int> dijkstra(int start, int vertex) {
+	vector<int> dis(vertex + 1, INF);
+	dis[start] = 0;
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
+	que.push({ 0,start });
+
+	while (!que.empty()) {
+		int cost = que.top().first;
+		int ver = que.top().second;
+		que.pop();
+
+		if (dis[ver] < cost)
+			continue;
+
+		for (int i = 0; i < EDGE_arr[ver].size(); i++) {
+			int node = EDGE_arr[ver][i].end;
+			int dis_to_node = cost + EDGE_arr[ver][i].cost;
+
+			if (dis[node] > dis_to_node) {
+				dis[node] = dis_to_node;
+				que.push({ dis_to_node,node });
+			}
+		}
+	}
+	return dis;
+}
+
+int main() {
+	int n, m, t, s, g, h;
+	int dest[101] = { 0, };
+	cin.tie(0); cin.sync_with_stdio(false);
+	int T;
+	cin >> T;
+	while (T--) {
+		cin >> n >> m >> t;
+		cin >> s >> g >> h;
+		int a, b, c;
+		for (int i = 1; i <= n; i++) {
+			EDGE_arr[i].clear();
+		}
+		for (int i = 0; i < m; i++) {
+			cin >> a >> b >> c;
+			EDGE_arr[a].push_back(NODE{ b, c });
+			EDGE_arr[b].push_back(NODE{ a, c });
+		}
+		for (int i = 0; i < t; i++) {
+			cin >> dest[i];
+		}
+		vector<int>from_s_dis = dijkstra(s, n);
+		vector<int>from_g_dis = dijkstra(g, n);
+		vector<int>from_h_dis = dijkstra(h, n);
+		vector<int>result;
+		for (int i = 0; i < t; i++) {
+			int dis_dest = from_s_dis[dest[i]];
+			if (dis_dest == from_s_dis[g] + from_g_dis[h] + from_h_dis[dest[i]] ||
+				dis_dest == from_s_dis[h] + from_h_dis[g] + from_g_dis[dest[i]])
+				result.push_back(dest[i]);
+		}
+		sort(result.begin(), result.end());
+
+		for (auto it : result) {
+			cout << it << ' ';
+		}
+		cout << '\n';
+	}
+	
+
+}
+*/
+
+
+// 백준 1504번 특정한 최단경로 
+/*
+#define MAX_N 801
+#define MAX_E 200001
+#define INF 987654321
+typedef struct NODE {
+	int end;
+	int cost;
+};
+
+// 각 노드의 엣지를 저장하는 벡터 
+// 0번 인덱스는 버린다. 
+vector<NODE> EDGE_arr[MAX_E];
+// 출발 노드에서부터의 거리를 저장하는 배열
+int dist[MAX_N] = { 0 };
+int N, E;
+vector<int> dijkstra(int start,int vertex) {
+	vector<int> dis(vertex + 1, INF);
+	dis[start] = 0;
+
+	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> que;
+	que.push({ 0,start });
+
+	while (!que.empty()) {
+		int cost = que.top().first;
+		int ver = que.top().second;
+		que.pop();
+
+		if (dis[ver] < cost)
+			continue;
+
+		for (int i = 0; i < EDGE_arr[ver].size(); i++) {
+			int node = EDGE_arr[ver][i].end;
+			int dis_to_node = cost + EDGE_arr[ver][i].cost;
+
+			if (dis[node] > dis_to_node) {
+				dis[node] = dis_to_node;
+				que.push({ dis_to_node,node });
+			}
+		}
+	}
+	return dis;
+}
+
+int main() {
+	cin.tie(0); cin.sync_with_stdio(false);
+	cin >> N >> E;
+	int a, b, c;
+	int node1, node2;
+	for (int i = 0; i < E; i++) {
+		cin >> a >> b >> c;
+		EDGE_arr[a].push_back(NODE{ b, c });
+		EDGE_arr[b].push_back(NODE{ a, c });
+	}
+	cin >> node1 >> node2;
+	vector<int>from_1_dis = dijkstra(1, N);
+	vector<int>from_Node1_dis = dijkstra(node1, N);
+	vector<int>from_Node2_dis = dijkstra(node2, N);
+	int answer = min(from_1_dis[node1] + from_Node1_dis[node2] + from_Node2_dis[N],
+		from_1_dis[node2] + from_Node2_dis[node1] + from_Node1_dis[N]);
+	if (answer >= INF || answer < 0)
+		cout << -1 << '\n';
+	else
+		cout << answer << '\n';
+
+}
+*/
+
+// 백준 1753번 최단경로 
+/*
+
+#define INF 987654321
+#define MAX_V 20001
+#define MAX_E 300001
+
+using namespace std;
+int start_node_num, V, E;
+
+typedef struct NODE {
+	int end;
+	int val;
+};
+
+// 각 노드의 엣지를 저장하는 벡터 
+// 0번 인덱스는 버린다. 
+vector<NODE> EDGE_arr[MAX_E];
+// 출발 노드에서부터의 거리를 저장하는 배열
+int dist[MAX_V] = { 0 };
+
+void dijkstra() {
+	priority_queue< pair<int, int> > pq;
+	pq.push({ 0, start_node_num });
+
+	// 노드의 거리 갱신은 V-1 번 만큼 하면 된다. 
+	while (!pq.empty()) {
+		int now_node = pq.top().second;
+		int cost = -1 * pq.top().first;
+		pq.pop();
+
+		// 현재 노드에서 부터 주변에 있는 얘들의 값을 갱신한다. 
+		for (int k = 0; k < EDGE_arr[now_node].size(); k++) {
+			int new_val = dist[now_node] + EDGE_arr[now_node][k].val;
+			int before_val = dist[EDGE_arr[now_node][k].end];
+
+			// 현재 노드로 부터 연결된 엣지의 목적지까지 가는 거리와 기존의 거리를 비교하여, 
+			// 기존의 것이 더 크면 값을 갱신한다.  
+			if (new_val < before_val) {
+				dist[EDGE_arr[now_node][k].end] = new_val;
+				pq.push({ -1 * new_val, EDGE_arr[now_node][k].end });
+			}
+		}
+
+	}
+}
+
+int main() {
+	cin >> V >> E >> start_node_num;
+	
+	int from, to, val;
+	// 간선 연결 
+	for (int i = 0; i < E; i++) {
+		cin >> from >> to >> val;
+		EDGE_arr[from].push_back(NODE{ to, val });
+	}
+
+	// 간선간의 거리 초기화 
+	for (int i = 1; i <= V; i++) {
+		dist[i] = INF;
+	}
+	dist[start_node_num] = 0;
+
+	
+	dijkstra();
+
+	// 값을 출력한다. 
+	for (int i = 1; i <= V; i++) {
+		if (dist[i] != INF) cout << dist[i] << '\n';
+		else cout << "INF\n";
+	}
+
+	return 0;
+}
+*/
+
+// 백준 2206번 벽 부수고 이동하기 
+/*
+
 int m, n;
 int check4[4][2] = { {0,1},{0,-1},{1,0},{-1,0} };
 int arr[1001][1001] = { 0, };
-int visit[1001][1001] = { 0, };
+int visit[1001][1001][2] = { 0, };
 void bfs() {
-	visit[1][1] = 1;
-	queue<pair<int, int>> que;
-	que.push(make_pair(1, 1));
+	visit[1][1][0] = 1;
+	queue<pair<int, pair<int, int>>> que;
+	que.push(make_pair(0, make_pair(1, 1)));
+	
 	while (!que.empty()) {
-		pair<int, int> k = que.front();
-		int cnt = visit[k.first][k.second];
-		bool iswall = (arr[k.first][k.second] == 1);
+		pair<int, int> k = que.front().second;
+		int brokenwall = que.front().first;
+		int cnt = visit[k.first][k.second][brokenwall];
+		que.pop();
 		for (int i = 0; i < 4; i++) {
 			int a = k.first + check4[i][0];
 			int b = k.second + check4[i][1];
 			
-			if (a > 0 && a <= n && b > 0 && b <= m &&visit[a][b]==0) {
-				if (iswall && arr[a][b]==0) {//이전칸이 벽이 였으면
-					que.push(make_pair(a, b));
-					visit[a][b] = cnt + 1;
+			if (a > 0 && a <= n && b > 0 && b <= m) {
+				if (arr[a][b] == 1 && brokenwall==0 &&!visit[a][b][1]) {
+					visit[a][b][1] = cnt + 1;
+					que.push(make_pair(1, make_pair(a, b)));
 				}
-				else if (!iswall) {
-					que.push(make_pair(a, b));
-					visit[a][b] = cnt + 1;
+				else if (arr[a][b] == 0 && visit[a][b][brokenwall] == 0) {
+					visit[a][b][brokenwall] = cnt + 1;
+					que.push(make_pair(brokenwall, make_pair(a, b)));
 				}
 			}
 		}
+		
 	}
 
 }
@@ -63,10 +357,20 @@ int main() {
 		}
 	}
 	bfs();
-	cout << visit[n][m] - 1 << '\n';
 
-}
-*/
+	if (visit[n][m][0] == 0 && visit[n][m][1] == 0) {
+		cout << -1 << '\n';
+	}
+	else if(visit[n][m][0]*visit[n][m][1]==0){
+		cout << max(visit[n][m][0], visit[n][m][1]) << '\n';
+	}
+	else {
+		cout << min(visit[n][m][0], visit[n][m][1]) << '\n';
+
+	}
+
+}*/
+
 // 백준 1697번 숨바꼭질 
 /*
 int check3[3][2] = { {1,1},{-1,1},{0,2} };
