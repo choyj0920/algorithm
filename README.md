@@ -16,7 +16,7 @@
 
 
 
-### 2월 
+### 
 
 Dynamic Programming; DP
 
@@ -116,4 +116,5 @@ for (int i = 1; i <= len1; i++) {
 p(n)= abc,p(n+1)=abc+1 일때 
 
 p(n*자연수+ i )%abc= p(i)% abc= p(i) 일것.
+
 
