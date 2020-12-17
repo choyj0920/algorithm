@@ -3,7 +3,7 @@
 
 ## 목차 
 
-[자주하는 실수](#자주-하는-실수)
+[자주 하는 실수](#자주-하는-실수)
 
 [학습내용](#학습내용:)
 
@@ -15,6 +15,7 @@
 
 [벨만 포드 알고리즘, 다익스트라 알고리즘](#벨만-포드-알고리즘,-다익트라알고리즘)
 
+[플로이드 와샬 알고리즘](#플로이드-와샬-알고리즘)
 
 
 
@@ -29,7 +30,8 @@
 
 
 
-### 자주 하는 실수
+
+# 자주 하는 실수
 
  
 
@@ -210,4 +212,54 @@ else:
          
 ```
 
+
+
+### 플로이드 와샬 알고리즘
+
+모든 정점에서 다른 모든 정점으로의 최단경로를 찾는 알고리즘
+
+ 이차원 배열로 각 정점에서 각정점으로가는 최단거리 초기화 후, 각 정점을 지난다고 가정하여  반복문
+
+**코드**
+
+```python
+# 백준 11404 플로이드
+
+import sys
+input =sys.stdin.readline
+INF= int(1e9)  #무한을 의미하는 값으로 10억을 설정
+
+def floydWarshall():
+    # k = 거쳐가는 노드
+    for k in range(1,n+1):
+        # i= 출발 노드
+        for i in range(1,n+1):
+            # j = 도착 노드
+            for j in range(1,n+1):
+                if edges[i][k]+edges[k][j] <edges[i][j]:
+                    edges[i][j]= edges[i][k]+edges[k][j] 
+
+# 노드의 개수, 간선의 개수 입력
+n= int(input())
+m= int(input())
+# 경로 배열 
+edges=[[INF]*(n+1) for _ in range(n+1)]
+
+for _ in range(m): #같은 노선 다른 경로 존재
+    a,b,c=map(int,input().split())
+    edges[a][b]=min(edges[a][b],c)
+for i in range(1,n+1): # 같은 노드 끼리 0
+    edges[i][i]=0
+
+floydWarshall() 
+
+# 값 출력
+for i in range(1,n+1):
+    for j in range(1,n+1):
+        if edges[i][j] !=INF:
+            print(edges[i][j],end=' ')
+        else:
+            print(0,end=' ')
+    print()
+```
 
