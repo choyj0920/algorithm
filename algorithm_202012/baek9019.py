@@ -30,7 +30,7 @@ while T>0:
         for i in range(4):
             next=dslr[i](x)
             if dp[next]=='':
-                dp[next]=path+str_dslr[i] # 이전과정의 경로를 모두 포함하여 오래걸림
+                dp[next]=path+str_dslr[i]
                 que.append(next)
                 if next==b:
                     que=[]
