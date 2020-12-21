@@ -5,7 +5,7 @@ input=sys.stdin.readline
 sys.setrecursionlimit(10**6)
 
 n=int(input())
-inorder=list(map(int,input().split()))
+inorder=list(map(int,input().split())) #
 postorder=list(map(int,input().split()))
 
 pos=[0]*(n+1)
