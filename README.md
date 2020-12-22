@@ -17,7 +17,9 @@
 
 [플로이드 와샬 알고리즘](#플로이드-와샬-알고리즘)
 
+[트리의 지름 (임의의 두 노드 중 가장 먼 노드 길이)](#트리의-지름 (임의의-두-노드-중-가장-먼-노드-길이))
 
+[Union-find (합집합 찾기)](#Union_find-(합집합-찾기))
 
 
 
@@ -394,7 +396,7 @@ print(maxDistance)
 
 
 
-### 파이썬의 재귀함수최대는 3000
+### 파이썬의 재귀함수최대는 1000
 
 재귀함수를 사용할 때 ,맞는 거 같은데  이상하게 런타임 에러가 발생할 때는 sys.setrecursionlimit(10**9) 
 
@@ -402,7 +404,50 @@ print(maxDistance)
 
 
 
+### Union_find (합집합 찾기)
 
+재귀를 이용하여  - 이것도 재귀 깊이 제한을 늘려야한다
+
+```python
+# baek1717 집합의 표현
+
+import sys
+input=sys.stdin.readline
+sys.setrecursionlimit(10**9)
+
+n,m=map(int,input().split())
+arr=[-1 for _ in range(n+1)]
+parent=[_ for _ in range(n+1)]
+
+def getParent(parent,x):    # 부모 노드를 찾는 함수
+    if parent[x]==x : return x
+    parent[x]=getParent(parent,parent[x])
+    return parent[x]
+
+
+def unionParent(parent,a,b):# 두 부모 노드를 합치는 함수
+    a= getParent(parent,a)
+    b= getParent(parent,b)
+    if a<b: parent[b]=a
+    else : parent[a]=b
+
+def checkUnion(parent,a,b): # 두 노드가 같은 부모노드를 가지는지 확인하는 함수
+    a= getParent(parent, a)
+    b= getParent(parent, b)
+    if a==b: return True
+    return False
+
+for _ in range(m):
+    check,a,b=map(int,input().split())
+    if check==0:
+        unionParent(parent,a,b)
+    elif check ==1:
+        if checkUnion(parent,a,b):
+            print("YES")
+        else:
+            print("NO")
+
+```
 
 
 
