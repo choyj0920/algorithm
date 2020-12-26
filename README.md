@@ -506,3 +506,46 @@ print(total_weight)         # 결과 출력
 
 ```
 
+
+
+### KMP(knuth-Morris-Pratt)
+
+문자열 매칭 알고리즘 
+
+반복되는 연산을 얼마나 줄일 수 있는지 판별 
+
+-접두사와 접미사가 일치하는 최대 길이를 찾는것!
+
+| 길이 | 문자열   | 최대 일치 길이 |
+| ---- | -------- | -------------- |
+| 1    | a        | 0              |
+| 2    | ab       | 0              |
+| 3    | aba      | 1              |
+| 4    | abac     | 0              |
+| 5    | abaca    | 1              |
+| 8    | abacaaba | 3              |
+
+접두사 접미사를 구하면  일치하는경우에 점프를 수행 할 수있다는 점에서 효율적
+
+```python
+def makeTable(pattern):
+    patternSize=len(pattern)
+	arr =[0 for _ in range(patternSize)]
+    j=0
+    for i in range(patternSize):
+        while(j>0 and pattern[i] != pattern[j]):
+            j=table[j-1]
+        if pattern[i]==pattern[j]:
+            j+=1
+            table[i]= j
+    return table
+    
+    
+```
+
+ 최종 코드
+
+```python
+
+```
+
