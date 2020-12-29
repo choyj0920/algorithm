@@ -641,5 +641,50 @@ print_trie(0,cur)
 
 ```
 
+### 
+
+### Sparse Table
+
+- 어떤 작업(예제에서는, 앞으로 한 칸 가기)을 여러 번 반복해야 할 때, 이를 빠르게 처리할 수 있게 해 줍니다.
+- 하나의 값을 채우기 위해서, table을 두 번 연속으로 참조하는 과정이 들어갑니다.
+- 정점이나 원소의 개수(N)뿐만 아니라, 반복할 횟수(K)가 시간·공간복잡도에 들어갑니다.
+  만약 이 K가 20, 30 하는 정도로 굉장히 작다면 sparse table의 크기도 굉장히 작아지고, 사실 쓸 필요가 없을 수도 있습니다.
+  반대로 K가 굉장히 커져서 2^64까지도 간다면 sparse table의 크기도 커집니다. ***"어차피 log를 붙이면 64배밖에 안 되는 거 아냐?"\*** 하고 생각하실 지도 모르지만, N=500,000 (50만)인 경우에 (64·N)짜리 int 배열의 크기는 122 MiB나 됩니다. 메모리 제한이 빡빡하다면 어려울 지도 몰라요.
+- 기록 대상을 미리 알고 있어야 하며, 중간에 바뀌면 안 됩니다. 예를 들어 한 화살표가 바뀌면, 그로 인해 배열 전체를 갈아엎고 새로 계산해야 할 지도 모릅니다. 그러면 전처리(preprocessing)를 해놓은 의미가 없죠.
+
+```python
+# baek17435 합성함수와 쿼리
+
+import sys
+import math
+input=sys.stdin.readline
+
+m=int(input())
+arr= [0]+list(map(int,input().split()))
+MAXLOG2=int(math.log2(500002) +1)
+sparseTable= [[0 for col in range(m+1)] for row in range(MAXLOG2)]
+
+for i in range(1,m+1):
+    sparseTable[0][i]=arr[i]
+
+
+for i in range(1,MAXLOG2):
+    for j in range(1,m+1):
+        sparseTable[i][j]=sparseTable[i-1][sparseTable[i-1][j]]
+
+
+q= int(input())
+for _ in range(q):
+    n,x=map(int,input().split())
+    cur=x
+    for i in range(MAXLOG2,-1,-1):
+        if n & (1<<i):
+            cur=sparseTable[i][cur] # 2^i 만큼 이동
+    print(cur)
+	
+```
+
+
+
 
 
