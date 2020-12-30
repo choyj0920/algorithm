@@ -16,7 +16,7 @@ for _ in range(n-1):
 p_list=[[0,0] for _ in range(n+1)]  # 부모노드 저장
 depth=[0 for _ in range(n+1)]   # 부모노드 개수
 
-visited=[False for _ in range(n+1)] # dfs 방문
+visited=[False for _ in range(n+1)] # bfs 방문
 
 q=deque()
 q.append(1) # 루트
