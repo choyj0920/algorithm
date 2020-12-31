@@ -842,3 +842,15 @@ for _ in range(m):
     print(shortest,longest)# 결과
 ```
 
+### 강한 결합요소 Strongly Connected Component 
+
+방향그래프에서 서로에게 갈 수 있는 정점들을 찾는 알고리즘
+
+-타잔 알고리즘: dfs를 정점마다 써서  체크
+
+
+
+```python
+
+```
+
