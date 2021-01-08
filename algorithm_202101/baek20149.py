@@ -52,8 +52,7 @@ elif abc*abd <=0 and cda*cdb <= 0:  # 선분이 평행하지 않을 때
     _DE=(_A*_D)-(_B*_C)
     print(1)
     if _DE != 0:
-        print(((_E*_D)-(_B*_F))/_DE,end=' ')
-        print(((_A*_F)-(_E*_C))/_DE)
+        print(((_E*_D)-(_B*_F))/_DE, ((_A*_F)-(_E*_C))/_DE,end=' ')
 else:
     print(0)
     
