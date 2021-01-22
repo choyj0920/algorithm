@@ -13,19 +13,16 @@ int main(){
     for (int i=1; i<=n;i++)
         cin>>arr[i];
         
-    for (int i=2; i<=n;i++)
-        arr[i]+=arr[i-1];
-
-    
-    for (int i=1;i<=n;i++){
-        for(int j=0;j+i<=n;j++)
-            if((arr[j+i]-arr[j])>=s){
-                cout<<i<<" ";
-                return 0;
-            }
+    int start=0,end=0,sum=0,minLen=100001;
+    while (start<=end)
+    {
+        if(sum>=s){
+            minLen=min(minLen,end-start);
+            sum-= arr[start++];
+        }
+        else if (end==n) break;
+        else sum += arr[end++];
     }
-
-    cout<<0<<'\n';
-
+    cout<<(minLen==100001?0:minLen)<<"\n";
 
 }
