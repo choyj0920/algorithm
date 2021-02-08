@@ -1,62 +1,92 @@
-// baek2042 구간합 구하기
+// baek2042 구간 합 구하기
+#include <stdio.h>
+#include <math.h>
+#include <vector>
 
-#include<stdio.h>
-typedef long long ll;
-ll tree[3000000];
-ll num[1000001];
-ll init(int, int, int);
-void update(int, int, int, int, int);
-ll sum(int, int, int, int, int);
-int main()
-{
-    int N, M, K;
-    scanf("%d%d%d", &N, &M, &K);
-    for (int i = 1; i <= N; ++i)
-        scanf("%lld", num + i);
-    init(1, 1, N);
- 
-    for (int i = 0; i < M + K; ++i)
-    {
-        int a, b, c;
-        scanf("%d%d%d", &a, &b, &c);
-        if (a == 1)
-        {
-            int diff = c - num[b];
-            num[b] = c;
-            update(1, 1, N, b, diff);
-        }
-        else
-            printf("%lld\n", sum(b, c, 1, 1, N));
-    }
+using namespace std;
+long long init(vector<long long>&, vector<long long>&, int, int, int);
+long long sum(vector<long long>&, int, int, int, int, int);
+void update(vector<long long>&, int, int, int, int, long long);
+
+int main() {
+
+	int m, n, k;
+
+	scanf("%d %d %d", &n, &m, &k);
+
+	double h =ceil(log2(n));
+	double size = pow(2,h+1); 
+
+	vector<long long> a(n);
+	vector<long long> tree(size);
+
+	for (int i = 0; i < n; i++) {
+		scanf("%lld", &a[i]);
+	}
+
+	init(a, tree, 1, 0, n - 1);
+
+	m += k;
+
+	for (int i = 0; i < m; i++) {
+		
+		int t1;
+		scanf("%d",&t1);
+
+		if (t1 == 1) {
+			int t2; long long t3;
+			scanf("%d %lld", &t2, &t3);
+
+			t2 -= 1;
+			long long diff = t3 - a[t2];
+			a[t2] = t3;
+			update(tree, 1, 0, n - 1, t2, diff);
+		}
+		else {
+			int t2, t3;
+			scanf("%d %d", &t2, &t3);
+			printf("%lld\n", sum(tree, 1, 0, n - 1, t2 - 1, t3 - 1));
+		}
+
+	}
+
+	return 0;
 }
-void update(int n, int s, int e, int t, int diff)
-{
-    if (s <= t && t <= e)
-        tree[n] += diff;
-    else
-        return;
-    if (s == e)
-        return;
-    int m = (s + e) / 2;
-    update(n * 2, s, m, t, diff);
-    update(n * 2 + 1, m + 1, e, t, diff);
+
+
+long long init(vector<long long>& a, vector<long long>& tree, int node, int start, int end) {
+	if (start == end) {
+		return tree[node] = a[start];
+	}
+	else {
+		return tree[node] = init(a, tree, node * 2, start, (start + end) / 2) + init(a, tree, node * 2 + 1, (start + end) / 2 + 1, end);
+	}
 }
-ll sum(int l, int r, int n, int s, int e)
-{
-    if (l <= s && e <= r) //구하는구간이 노드의구간을 포함할때
-        return tree[n];
-    if (r < s || e < l) //아예 벗어나있을때
-        return 0;
-    //어중간하게 겹칠때
- 
-    int m = (s + e) / 2;
-    return sum(l, r, n * 2, s, m) + sum(l, r, n * 2 + 1, m + 1, e);
+
+long long sum(vector<long long>& tree, int node, int start, int end, int left, int right) {
+
+	if (right < start || end < left) {
+		return 0;
+	}
+	
+	if (left <= start && end <= right) {
+		return tree[node];
+	}
+
+	return sum(tree, node * 2, start, (start + end) / 2, left, right) + sum(tree, node * 2 + 1, (start + end) / 2 + 1, end, left, right);
 }
-ll init(int n, int s, int e)//n번노드는 s~e를 맡는다
-{
-    if (s == e)
-        return tree[n] = num[s];
-    int m = (s + e) / 2;
-    tree[n] = init(n * 2, s, m) + init(n * 2 + 1, m + 1, e);
-    return tree[n];
+
+void update(vector<long long>& tree, int node, int start, int end, int index, long long diff) {
+
+	if (index < start || end < index) {
+		return;
+	}
+
+	tree[node] += diff;
+
+	if (start != end) {
+		update(tree, node * 2, start, (start + end) / 2, index, diff);
+		update(tree, node * 2 + 1, (start + end) / 2 + 1, end, index, diff);
+	}
+		
 }
