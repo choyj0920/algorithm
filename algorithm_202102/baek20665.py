@@ -1,13 +1,15 @@
 # baek20665 독서실 거리두기
 import sys
+import heapq
 input=sys.stdin.readline
 n,t,p=map(int,input().split())
 p-=1
 arr=[]
 for i in range(t):
     a,b=map(int,input().split())
-    arr.append([a,i,0,b])
-    arr.append([b,i,1,a])
+    if a==b: 
+        continue
+    arr.append([a,b,i])
 
 arr=sorted(arr)
 check=[-1]*n
@@ -27,33 +29,36 @@ def findmindis():
             
     return ans
 def caltime(before, after):
-    h1=before//100
-    m1=before%100
-    h2=after//100
-    m2=after%100
-    ans =(h2-h1)*60
-    ans+= m2-m1
+    h1=before // 100
+    m1=before % 100
+    h2=after // 100
+    m2=after % 100
+    ans =(h2 - h1) * 60
+    ans+= m2 - m1
 
     return ans
 
-
+que= []
 cnt=0
 temp=900
-for time,per,isin,ot in arr:
-    if isin ==0: # 자리 앉으러옴
-        sit=findmindis()
+i =0
+while i<len(arr) or len(que) !=0 :
+    if i<len(arr) and (len(que)==0 or arr[i][0] < que[0][0]): # 입실 
+        
+        intime,outtime,per=arr[i]
+        sit =findmindis()
         check[sit]=per
-        if p == sit:
-            cnt+= caltime(temp,time)
-            
-    else: # 자리 일어섬
-        sit=-1
-        for _ in range(n):
-            if check[_]==per:
-                sit=_
-                break
-        check[sit]=-1
+        heapq.heappush(que,[outtime,sit])
+        if p==sit:
+            cnt+=caltime(temp,intime)
+        i+=1
+    else:  # 퇴실
+        outtime,sit=heapq.heappop(que)
+        check[sit]= -1
         if p== sit:
-            temp=time
+            temp=outtime
+        pass
+
+        
 cnt+=caltime(temp,2100)
 print(cnt)
