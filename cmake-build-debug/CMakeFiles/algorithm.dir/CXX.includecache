@@ -1,0 +1,24 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+C:/Users/choyj/coding/algorithm/algorithm_202103/baek2336.cpp
+iostream
+-
+vector
+-
+algorithm
+-
+utility
+-
+queue
+-
+string
+-
+stack
+-
+
