@@ -1,5 +1,4 @@
 # baek14860 GCD 곱
-
 import sys
 input=sys.stdin.readline
 check=[False]*(15000002)
