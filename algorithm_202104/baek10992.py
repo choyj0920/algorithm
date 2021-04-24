@@ -1,0 +1,9 @@
+# baek10992 별 찍기 -17
+N = int(input())
+for i in range(1, N+1):
+    if i == N:
+        print('*'*(2*i-1))
+    elif i == 1:
+        print(' '* (N-i),'*',sep = '')
+    else:
+        print(' '* (N-i),'*',' '*(2*i-3),'*', sep = '')
