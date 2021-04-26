@@ -1,81 +1,43 @@
 # baek17143 낚시왕
 import sys
-input=sys.stdin.readline
-R,C,M=map(int,input().split())
-arr=[[ [] for _ in range(C+1)] for _ in range(R+1)]
-shark=dict()
-for i in range(1,M+1):
-    # r0,c1 위치 , s2 -속력, d3 이동방향 (1-위 ,2- 아래,3-오른쪽,4-왼쪽), z4 크기
-    r, c, s, d, z= map(int,input().split())
-    shark[i]=[r,c,s,d,z]
-    arr[r][c].append(i)
-ans=0
-def fishing(col):
-    global ans,arr,shark
-    for i in range(1,R+1):
-        if len(arr[i][col]) > 0:
-            sharknum= arr[i][col][0]
-            ans+= shark[sharknum][4]
-            arr[i][col]=[]
-            del shark[sharknum]            
+input = sys.stdin.readline
+def shMove():
+    temp = [[0] * C for i in range(R)]
+    for i in range(R):
+        for j in range(C):
+            if g[i][j] != 0:
+                x, y, s, d, z = i, j, g[i][j][0], g[i][j][1], g[i][j][2]
+                while s > 0:
+                    x += dx[d]
+                    y += dy[d]
+                    if 0 <= x < R and 0 <= y < C:
+                        s -= 1
+                    else:
+                        x -= dx[d]
+                        y -= dy[d]
+                        if d == 0: d = 1
+                        elif d == 1: d = 0
+                        elif d == 2: d = 3
+                        elif d == 3: d = 2
+                if temp[x][y] == 0:
+                    temp[x][y] = [g[i][j][0], d, z]
+                else:
+                    if temp[x][y][2] < z:
+                        temp[x][y] = [g[i][j][0], d, z]
+    return temp
+dx = [-1, 1, 0, 0]
+dy = [0, 0, 1, -1]
+R, C, m = map(int, input().split())
+g = [[0] * C for i in range(R)]
+for i in range(1, m + 1):
+    r, c, s, d, z = map(int, input().split())
+    g[r - 1][c - 1] = [s, d - 1, z]
+result = 0
+for i in range(C):
+    for j in range(R):
+        if g[j][i] != 0:
+            result += g[j][i][2]
+            g[j][i] = 0
             break
-
-def moving():
-    global arr,shark
-    for sharknum,info in shark.items():
-        arr[info[0]][info[1]].remove(sharknum)
-        posR,posC,direct=info[0],info[1],info[3]
-        if info[3] ==1: # 위로 이동
-            posR-= info[2]
-            if posR<1:
-                direct=2
-                posR = -posR +1
-        elif info[3]==2: # 아래로 이동
-            posR+= info[2]
-            if posR >R:
-                direct=1
-                posR= 2*R-posR
-
-        elif info[3]==3: # 우측이동
-            posC+= info[2]
-            if posC >C:
-                direct=4
-                posC= 2*C-posC
-        else:  # 왼쪽 이동
-            posC-= info[2]
-            if posC<1:
-                direct=3
-                posC = -posC +1
-
-        arr[posR][posC].append(sharknum)
-        shark[sharknum][0],shark[sharknum][1],shark[sharknum][3]=posR,posC,direct
-    
-    for i in range(1,R+1):
-        for j in range(1,C+1):
-            if len(arr[i][j]) >1:
-                temp=arr[i][j]
-                maxindex,maxZ=0,-1
-                for i in temp:
-                    if shark[i][4]>maxZ:
-                        maxindex=i
-                        maxZ=shark[i][4]
-                
-                arr[i][j]=[maxindex]
-                for i in temp:
-                    if i !=maxindex:
-                        del shark[i]            
-                        
-                    
-
-            
-
-
-for i in range(1, C+1):
-    fishing(i)
-    moving()
-print(ans)
-    
-    
-    
-
-    
+    g = shMove()
+print(result)
