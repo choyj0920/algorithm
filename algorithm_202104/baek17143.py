@@ -1,4 +1,4 @@
-# baek17143 낚시왕baek
+# baek17143 낚시왕
 import sys
 input = sys.stdin.readline
 def shMove():
