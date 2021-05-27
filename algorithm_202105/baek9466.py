@@ -1,6 +1,6 @@
 # baek9466 텀 프로젝트
 import sys
-sys.setrecursionlimit(99999)
+sys.setrecursionlimit(999999)
 input=sys.stdin.readline
 def dfs(node):
     global ans
