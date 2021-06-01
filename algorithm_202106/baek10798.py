@@ -1,4 +1,4 @@
-# baek10798
+# baek10798 세로 읽기
 import sys
 arr=[]
 for i in range(5):
