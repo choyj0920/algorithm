@@ -1,54 +1,34 @@
 # baek2589 보물섬
-import sys
-sys.setrecursionlimit(10**9)
-input=sys.stdin.readline
-dx=[-1,1,0,0]
-dy=[0,0,-1,1]
-n,m=0,0
-arr=[]
-maxdis=0
-treasure=[]
 
-visited=[]
-def bfs(x,y,cnt):
-    global maxdis,visited
-    
-    que = [(x,y,0)]
+from collections import deque
 
-    while que:
-        cx,cy,count=que.pop(0)
-        print("aaa: ",cx,cy,count)
-        visited[cx][cy]=True
+dx = [1, -1, 0, 0]
+dy = [0, 0, 1, -1]
+
+def bfs(x, y):
+    q.append([x, y])
+    c = [[0]*m for _ in range(n)]
+    c[x][y] = 1
+    num = 0
+    while q:
+        x, y = q.popleft()
         for i in range(4):
-            nx=cx+dx[i]
-            ny=cy=dy[i]
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if 0 <= nx < n and 0 <= ny < m:
+                if a[nx][ny] == 'L' and c[nx][ny] == 0:
+                    c[nx][ny] = c[x][y] + 1
+                    num = max(num, c[nx][ny])
+                    q.append([nx, ny])
+    return num-1
 
-            if 0<=nx<n and 0<=ny<m and arr[nx][ny] == 'L' and visited[nx][ny]==False:
-                if maxdis <count+1:
-                    maxdis =count+1
-                    print(cx,cy,arr[cx][cy],nx,ny,maxdis)
-                
-                que.append((nx,ny,count+1))
+n, m = map(int, input().split())
+a = [list(map(str, input())) for _ in range(n)]
+q = deque()
 
-    return 0
-    
-
-
-def main():
-    global n,m,visited,arr
-    n,m=map(int,input().split())
-
-    for i in range(n):
-        arr.append(input().rstrip())
-    
-    for i in range(n):
-        for j in range(m):
-            if arr[i][j] !='W':
-                visited=[[False] * m for _ in range(n)]
-                print(i,j)
-                bfs(i,j,0)
-    print(maxdis)
-
-if __name__ == '__main__':
-    main()
-    
+cnt = 0
+for i in range(n):
+    for j in range(m):
+        if a[i][j] == 'L':
+            cnt = max(cnt, bfs(i, j))
+print(cnt)
