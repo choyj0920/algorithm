@@ -6,5 +6,5 @@ for i in range(int(input())):
         card[n] +=1
     else:
         card[n]=1
-card =sorted(card,key = lambda x: (-x[1],x[0]))
+card =sorted(card.items(),key = lambda x: (-x[1],x[0]))
 print(card[0][0])
