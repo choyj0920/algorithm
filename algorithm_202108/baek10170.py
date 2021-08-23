@@ -1,4 +1,4 @@
-# baek10170 
+# baek10170  NFC West vs North
 print("NFC West       W   L  T")
 print("-----------------------")
 print("Seattle        13  3  0")
