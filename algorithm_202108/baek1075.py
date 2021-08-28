@@ -2,4 +2,4 @@
 n=int(input().rstrip()[:-2]+'00')
 f=int(input())
 
-print(format(f-n%f,'02'))
+print(format((f-n%f)%f,'02'))
